@@ -1,0 +1,20 @@
+<mat-card class="card">
+  <form [formGroup]='formLogin' (ngSubmit)='login()'>
+    <mat-card-title class="header">Login</mat-card-title>
+    <mat-card-subtitle>if its your first time please rejister first</mat-card-subtitle>
+    <label>Id number</label>
+    <input type='number' formControlName='idNum'>
+    <label>password</label>
+    <input type="password" formControlName='passwordRow'>
+    <mat-chip-list aria-label="Fish selection" class="chips">
+      <button class="btn" type="submit">
+        <mat-chip class="chip" selected>login</mat-chip>
+      </button>
+      <mat-chip class="chip" selected (click)="changeGoToRejister()">rejister</mat-chip>
+    </mat-chip-list>
+  </form>
+</mat-card>
+<mat-card class="enter" *ngIf="headerCheck" (click)="checkAndEnterShop()">
+  <mat-card-title>Start Shopping</mat-card-title>
+</mat-card>
+<app-rejister *ngIf="goToRejister"></app-rejister>

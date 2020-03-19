@@ -1,0 +1,14 @@
+<p>products-main works!</p>
+<select #select (change)='getProductByCategory(select.value)'>
+    <option *ngFor="let category of categorys" [value]="category._id">
+        {{category.category_name}}</option>
+</select>
+<input type="text" [(ngModel)]="searchTerm">
+
+<ul *ngFor="let item of products">
+    <li>{{item | json}}</li>
+    <li>{{item._id}}</li>
+    <li [innerHTML]='item.prdouct_name |colorYellow:searchTerm'></li>
+    <img [src]="item.img_url" alt="">
+    <button (click)='getProductByCategory(item.category_id._id)'>{{item.category_id.category_name}}</button>
+</ul>
