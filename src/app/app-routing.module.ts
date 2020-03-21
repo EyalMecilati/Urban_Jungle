@@ -9,7 +9,7 @@ import { RejisterComponent } from './components/rejister/rejister.component';
 
 const routes: Routes = [
   { path: 'welcome-to-the-jungle', component: MainComponent },
-  { path: 'products', component: ProductsMainComponent },
+  { path: 'products/:id', component: ProductsMainComponent },
   { path: 'login', component: LoginMainComponent },
   { path: 'rejister', component: RejisterComponent },
   { path: '', redirectTo: '/welcome-to-the-jungle', pathMatch: 'full' },

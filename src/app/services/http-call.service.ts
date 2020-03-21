@@ -5,6 +5,7 @@ import { Product } from '../interfaces/products'
 import { Category } from '../interfaces/Category';
 import { User } from '../interfaces/user';
 import { Order } from '../interfaces/Order';
+import { Cart } from '../interfaces/Cart';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,10 @@ import { Order } from '../interfaces/Order';
 export class HttpCallService {
 
   constructor(private http: HttpClient) { }
+  // public products:Product[];
+  public headerCheck:boolean = false;
+  public storeInfoTotalSum:any;
+  public openCartFrom:Date;
 
   //all products                                          ------products------
   public getAllProducts(): Observable<Product[]> {
@@ -53,6 +58,11 @@ export class HttpCallService {
       }
     });
   };
+
+  // open new cart 
+  public newCart(id):Observable<Cart>{
+    return this.http.post<Cart>('http://localhost:1000/api/cart',id);
+  }
 
   // get all orders
   public getOrders(): Observable<Order[]> {

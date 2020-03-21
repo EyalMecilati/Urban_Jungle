@@ -6,9 +6,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 // import { MatInputModule } from '@angular/material/input';
-// import { MatButtonModule } from '@angular/material/button';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [],
@@ -21,9 +22,10 @@ import {MatSelectModule} from '@angular/material/select';
     MatChipsModule,
     MatStepperModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule, 
+    MatSidenavModule,
     // MatInputModule,
-    // MatButtonModule
+    MatButtonModule
   ]
 })
 export class MaterialModule { }

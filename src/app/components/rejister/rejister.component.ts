@@ -37,6 +37,7 @@ export class RejisterComponent implements OnInit {
 
   // check if user is alredy rejister;
   public handleSubmit1(back) {
+    console.log(this.rejisterForm1.value.idNum)
     this.httpCallService.checkNewUser({ idNum: this.rejisterForm1.value.idNum }).subscribe(
       res => {
         if (res == null) {
@@ -60,6 +61,7 @@ export class RejisterComponent implements OnInit {
           res => {
             this.token = res;
             localStorage.setItem('token', res)
+            this.httpCallService.headerCheck = true;
             this.router.navigate(['/welcome-to-the-jungle']);
           },
           err => console.log(err)

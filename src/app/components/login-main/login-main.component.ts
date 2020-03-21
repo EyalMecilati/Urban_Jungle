@@ -11,13 +11,14 @@ import { Router } from '@angular/router';
 })
 export class LoginMainComponent implements OnInit {
 
-  public headerCheck: boolean;
   public formLogin: FormGroup;
   public user: User;
   public token: string;
   public goToRejister: boolean = false;
+  public header: string;
+  public errors: string = '';
 
-  constructor(private httpCallService: HttpCallService, private fBuilder: FormBuilder, private router: Router) { }
+  constructor(public httpCallService: HttpCallService, private fBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.tokenCheck();
@@ -31,17 +32,40 @@ export class LoginMainComponent implements OnInit {
     this.token = localStorage.getItem('token');
     this.httpCallService.checkEntry(this.token).subscribe(
       res => {
-        console.log(res)
-        // if (this.token == null) {
-        //   return this.headerCheck = false;
-        // } else {
+        this.httpCallService.headerCheck = true;
+        // dont have a cart
+        if (res.errors == 'dont have a cart yet') {
+          console.log(res, 'dont have a cart yet')
+          this.httpCallService.storeInfoTotalSum = null;
+          this.header = 'Start shopping'
 
-        //   return this.headerCheck = true;
-        // }
-        // this.router.navigate(['/products/' + res.idNum]);
+          // cart is empty
+        } else if (res.errors == 'couldnt find a cartinfo') {
+          console.log(res, 'couldnt find a cartinfo')
+          this.header = 'Continue shopping'
+          this.httpCallService.storeInfoTotalSum = null;
+        } else if (res.errors == 'no err') {
+          // have a cart with products
+          console.log(res, 'have a cart with products')
+          this.header = 'Continue shopping'
+          let totalSum = 0
+          for (let info of res.cartsInfo) {
+            totalSum += info.sum;
+          };
+          this.httpCallService.openCartFrom = res.cart.date
+          this.httpCallService.storeInfoTotalSum = totalSum;
+          // first order
+        } else if (res.errors = 'dont have a last order') {
+          console.log(res, 'dont have a last order')
+          this.header = 'start your first order'
+          this.httpCallService.storeInfoTotalSum = null;
+        }
       },
       err => {
+        // hide open order text in store info
+        this.httpCallService.storeInfoTotalSum = null;
         console.log(err)
+        this.httpCallService.headerCheck = false;
       }
     )
 
@@ -50,12 +74,16 @@ export class LoginMainComponent implements OnInit {
   public login() {
     this.httpCallService.getToken(this.formLogin.value).subscribe(
       res => {
-        console.log(res)
+        this.errors = '';
         this.token = res;
         localStorage.setItem('token', res)
         this.tokenCheck();
       },
-      err => console.log(err)
+      err => {
+        this.httpCallService.storeInfoTotalSum = null;
+        this.errors = 'wrong id number or password'
+        this.httpCallService.headerCheck = false;
+      }
     );
   };
 

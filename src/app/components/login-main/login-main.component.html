@@ -13,8 +13,9 @@
       <mat-chip class="chip" selected (click)="changeGoToRejister()">rejister</mat-chip>
     </mat-chip-list>
   </form>
+  <label class="error">{{errors}}</label>
 </mat-card>
-<mat-card class="enter" *ngIf="headerCheck" (click)="checkAndEnterShop()">
-  <mat-card-title>Start Shopping</mat-card-title>
+<mat-card class="enter" *ngIf="httpCallService.headerCheck" (click)="checkAndEnterShop()">
+  <mat-card-title>{{header}}</mat-card-title>
 </mat-card>
 <app-rejister *ngIf="goToRejister"></app-rejister>

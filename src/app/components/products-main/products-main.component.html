@@ -1,14 +1,46 @@
-<p>products-main works!</p>
-<select #select (change)='getProductByCategory(select.value)'>
+<!-- <select #select (change)='getProductByCategory(select.value)'>
     <option *ngFor="let category of categorys" [value]="category._id">
         {{category.category_name}}</option>
 </select>
 <input type="text" [(ngModel)]="searchTerm">
+<h1>{{userCart | json}}</h1>
+<h1>last order total sum: {{totlalSumFromOldOrder}}</h1>
+
 
 <ul *ngFor="let item of products">
-    <li>{{item | json}}</li>
     <li>{{item._id}}</li>
     <li [innerHTML]='item.prdouct_name |colorYellow:searchTerm'></li>
     <img [src]="item.img_url" alt="">
     <button (click)='getProductByCategory(item.category_id._id)'>{{item.category_id.category_name}}</button>
 </ul>
+
+<div class="container">
+    <ol>
+        <li *ngFor="let product of productsFromLastOrder" style="text-decoration: underline;">{{product.prdouct_name}}</li>
+    </ol> 
+</div> -->
+<mat-drawer-container class="container">
+    <mat-drawer class="side" mode="side" [opened]='opened' *ngIf="userCart">
+        <header>
+            <h2>Your Cart</h2>
+        </header>
+        <mat-card class="cartProduct" *ngFor="let product of userCart; let i = index">
+            <mat-card-header>
+                <img mat-card-avatar [src]="productsFromLastOrder[i].img_url" alt="User Avatar">
+                <mat-card-title class="cartProductTitle">{{productsFromLastOrder[i].prdouct_name}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <label>Quantity: {{product.quantity}}</label>
+                <label>Price: {{productsFromLastOrder[i].price}}</label>
+            </mat-card-content>
+        </mat-card>
+    </mat-drawer>
+    <mat-drawer-content>
+        <header>
+            <h2>Products</h2>
+            <span (click)='toggleCart()' class="material-icons">
+                reorder
+            </span>
+        </header>
+    </mat-drawer-content>
+</mat-drawer-container>
