@@ -17,6 +17,7 @@ export class HttpCallService {
   public headerCheck:boolean = false;
   public storeInfoTotalSum:any;
   public openCartFrom:Date;
+  public cart:any;
 
   //all products                                          ------products------
   public getAllProducts(): Observable<Product[]> {
@@ -60,13 +61,28 @@ export class HttpCallService {
   };
 
   // open new cart 
-  public newCart(id):Observable<Cart>{
-    return this.http.post<Cart>('http://localhost:1000/api/cart',id);
+  public newCart(id):Observable<any>{
+    return this.http.post<any>('http://localhost:1000/api/cart',id);
   }
 
   // get all orders
   public getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>('http://localhost:1000/api/order');
+  }
+
+  // add product to cart 
+  public addProductToCart(product,token):Observable<any>{ 
+    return this.http.post<any>('http://localhost:1000/api/cart/info',product, {
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}` 
+      }
+    })
+  }
+
+  // get cartby id 
+  public getCartById(id):Observable<any>{
+    return this.http.get('http://localhost:1000/api/cart/'+id);
   }
 
 }

@@ -1,0 +1,12 @@
+<h1 mat-dialog-title class="titleDialog">{{name}}</h1>
+<div mat-dialog-content>
+    <p>Do you want to Add this item to your cart</p>
+    <mat-form-field>
+        <mat-label>quantity:</mat-label>
+        <input matInput type="number" [(ngModel)]="quantity">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="quantity" cdkFocusInitial>Ok</button>
+</div>

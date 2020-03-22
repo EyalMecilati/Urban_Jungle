@@ -7,8 +7,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
-
-// import { MatInputModule } from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
@@ -24,8 +23,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatFormFieldModule,
     MatSelectModule, 
     MatSidenavModule,
-    // MatInputModule,
-    MatButtonModule
+    MatDialogModule,
+    MatButtonModule,
   ]
 })
 export class MaterialModule { }

@@ -20,12 +20,14 @@
     </ol> 
 </div> -->
 <mat-drawer-container class="container">
-    <mat-drawer class="side" mode="side" [opened]='opened' *ngIf="userCart">
+    <!-- side cart -->
+    <mat-drawer class="side" mode="side" [opened]='opened'>
         <header>
             <h2>Your Cart</h2>
         </header>
         <mat-card class="cartProduct" *ngFor="let product of userCart; let i = index">
             <mat-card-header>
+                <!-- <p>{{product | json}} </p> -->
                 <img mat-card-avatar [src]="productsFromLastOrder[i].img_url" alt="User Avatar">
                 <mat-card-title class="cartProductTitle">{{productsFromLastOrder[i].prdouct_name}}</mat-card-title>
             </mat-card-header>
@@ -34,7 +36,12 @@
                 <label>Price: {{productsFromLastOrder[i].price}}</label>
             </mat-card-content>
         </mat-card>
+        <footer>
+            <h3 *ngIf="errorMsg">{{errorMsg}}</h3>
+            <h4>total sum: {{totlalSumFromOldOrder}}</h4>
+        </footer>
     </mat-drawer>
+    <!-- main view -->
     <mat-drawer-content>
         <header>
             <h2>Products</h2>
@@ -42,5 +49,17 @@
                 reorder
             </span>
         </header>
+        <div class="products">
+            <mat-card class="Productbox" *ngFor="let product of products">
+                <mat-card-header class="productHeader">
+                    <mat-card-title class="cartProductTitle">{{product.prdouct_name}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <img class="productImg" [src]="product.img_url" alt="User Avatar">
+                    <p>Price: {{product.price}}</p>
+                    <button mat-raised-button (click)="openDialog(product)">Add item to Cart</button>
+                </mat-card-content>
+            </mat-card>
+        </div>
     </mat-drawer-content>
 </mat-drawer-container>

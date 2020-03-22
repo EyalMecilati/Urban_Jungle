@@ -34,3 +34,33 @@ mat-card-content{
         margin-left: 60px;
     }
 }
+
+.productImg{
+    height: 80px;
+    width: 100px;
+    margin-left: 23%;
+}
+
+.products{
+    display: flex;
+    .Productbox{
+        border: 1px white solid;
+        margin: 10px;
+        .productHeader{
+            height: fit-content;
+            margin: 0px;
+        }
+        p{
+            margin: 10px;
+        }
+        // input{
+        //     width: 5px;
+        // }
+        
+    }
+}
+
+footer{
+    text-align: center;
+    margin: 30px;
+}

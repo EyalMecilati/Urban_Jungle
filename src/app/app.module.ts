@@ -16,6 +16,7 @@ import { MatInputModule} from '@angular/material/input';
 import { AboutMainComponent } from './components/about-main/about-main.component';
 import { ColorYellowPipe } from './pipes/color-yellow.pipe';
 import { StoreInfoComponent } from './components/store-info/store-info.component';
+import { ModalComponent } from './components/products-main/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { StoreInfoComponent } from './components/store-info/store-info.component
     RejisterComponent,
     AboutMainComponent,
     ColorYellowPipe,
-    StoreInfoComponent
+    StoreInfoComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
