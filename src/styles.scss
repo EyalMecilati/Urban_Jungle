@@ -3,9 +3,10 @@
 html, body { 
     height: 100%;
     background-color: #ecb390;
-background-image: url("https://www.transparenttextures.com/patterns/brick-wall-dark.png");
+background-image: url("https://pingpoint.co.id/media/images/Membuat_Urban_Farming_dengan_Gaya_Vertical_Gard.original.jpg");
+background-repeat: no-repeat;
+background-size: cover; 
  }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 *{
     padding: 0px;
     margin: 0px;
@@ -15,10 +16,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-top: 30px !important;
 }
 
-mat-card-title{
-    color: #cbe2b0;
-}
-
 .mark{
     color: yellow;
 }
+
+mat-card-title {
+    font-family: 'Patrick Hand', cursive;
+    color: green;
+}
+

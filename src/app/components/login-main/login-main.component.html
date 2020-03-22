@@ -16,6 +16,6 @@
   <label class="error">{{errors}}</label>
 </mat-card>
 <mat-card class="enter" *ngIf="httpCallService.headerCheck" (click)="checkAndEnterShop()">
-  <mat-card-title>{{header}}</mat-card-title>
+  <mat-card-title class="titleHeader">{{header}}</mat-card-title>
 </mat-card>
 <app-rejister *ngIf="goToRejister"></app-rejister>
