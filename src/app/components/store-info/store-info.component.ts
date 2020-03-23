@@ -28,7 +28,6 @@ export class StoreInfoComponent implements OnInit {
   public getAllOrders() {
     this.httpCallService.getOrders().subscribe(
       res => {
-        console.log(res)
         this.orders = res;
         this.ordersNum = res.length
       },
@@ -40,7 +39,6 @@ export class StoreInfoComponent implements OnInit {
   public getProducts() {
     this.httpCallService.getAllProducts().subscribe(
       res => {
-        console.log(res)
         this.products = res
         // this.httpCallService.products = res;
         this.productsNum = res.length

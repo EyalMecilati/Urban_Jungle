@@ -21,7 +21,6 @@ export class ModalComponent implements OnInit {
     this.name = this.data1.prdouct_name;
     this.quantity = this.data1.amount;
     this.cartId = this.data1.cart
-    console.log(this.name, this.quantity, this.cartId)
   }
 
 

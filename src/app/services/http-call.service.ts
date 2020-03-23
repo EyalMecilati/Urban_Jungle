@@ -14,10 +14,10 @@ export class HttpCallService {
 
   constructor(private http: HttpClient) { }
   // public products:Product[];
-  public headerCheck:boolean = false;
-  public storeInfoTotalSum:any;
-  public openCartFrom:Date;
-  public cart:any;
+  public headerCheck: boolean = false;
+  public storeInfoTotalSum: any;
+  public openCartFrom: Date;
+  public cart: any;
 
   //all products                                          ------products------
   public getAllProducts(): Observable<Product[]> {
@@ -61,8 +61,8 @@ export class HttpCallService {
   };
 
   // open new cart 
-  public newCart(id):Observable<any>{
-    return this.http.post<any>('http://localhost:1000/api/cart',id);
+  public newCart(id): Observable<any> {
+    return this.http.post<any>('http://localhost:1000/api/cart', id);
   }
 
   // get all orders
@@ -71,18 +71,24 @@ export class HttpCallService {
   }
 
   // add product to cart 
-  public addProductToCart(product,token):Observable<any>{ 
-    return this.http.post<any>('http://localhost:1000/api/cart/info',product, {
+  public addProductToCart(product, token): Observable<any> {
+    return this.http.post<any>('http://localhost:1000/api/cart/info', product, {
       headers: {
         "Content-Type": "application/json",
-        "authorization": `Bearer ${token}` 
+        "authorization": `Bearer ${token}`
       }
     })
   }
 
   // get cartby id 
-  public getCartById(id):Observable<any>{
-    return this.http.get('http://localhost:1000/api/cart/'+id);
+  public getCartById(id): Observable<any> {
+    return this.http.get('http://localhost:1000/api/cart/' + id);
+  }
+
+  // remove product from cart 
+  public removeItemFromCart(productId, cart_id): Observable<any> {
+    const id = {productId:productId}
+    return this.http.post<any>('http://localhost:1000/api/cart/remove-product/' + cart_id, id)
   }
 
 }

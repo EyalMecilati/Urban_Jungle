@@ -17,6 +17,7 @@ export class LoginMainComponent implements OnInit {
   public goToRejister: boolean = false;
   public header: string;
   public errors: string = '';
+  public loading: boolean = false; 
 
   constructor(public httpCallService: HttpCallService, private fBuilder: FormBuilder, private router: Router) { }
 
@@ -29,24 +30,23 @@ export class LoginMainComponent implements OnInit {
   }
 
   public tokenCheck() {
+    this.loading = true
     this.token = localStorage.getItem('token');
     this.httpCallService.checkEntry(this.token).subscribe(
       res => {
+        this.loading = false;
         this.httpCallService.headerCheck = true;
         // dont have a cart
         if (res.errors == 'dont have a cart yet') {
-          console.log(res, 'dont have a cart yet')
           this.httpCallService.storeInfoTotalSum = null;
           this.header = 'Start shopping'
 
           // cart is empty
         } else if (res.errors == 'couldnt find a cartinfo') {
-          console.log(res, 'couldnt find a cartinfo')
           this.header = 'Continue shopping'
           this.httpCallService.storeInfoTotalSum = null;
         } else if (res.errors == 'no err') {
           // have a cart with products
-          console.log(res, 'have a cart with products')
           this.header = 'Continue shopping'
           let totalSum = 0
           for (let info of res.cartsInfo) {
@@ -56,15 +56,14 @@ export class LoginMainComponent implements OnInit {
           this.httpCallService.storeInfoTotalSum = totalSum;
           // first order
         } else if (res.errors = 'dont have a last order') {
-          console.log(res, 'dont have a last order')
           this.header = 'start your first order'
           this.httpCallService.storeInfoTotalSum = null;
         }
       },
       err => {
+        this.loading = false;
         // hide open order text in store info
         this.httpCallService.storeInfoTotalSum = null;
-        console.log(err)
         this.httpCallService.headerCheck = false;
       }
     )
@@ -94,7 +93,7 @@ export class LoginMainComponent implements OnInit {
         this.router.navigate(['/products/' + res.idNum]);
       },
       err => {
-        console.log(err)
+        this.errors = 'not authorised'
       }
     )
   };

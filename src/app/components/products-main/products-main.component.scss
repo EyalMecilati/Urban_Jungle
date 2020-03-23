@@ -5,7 +5,7 @@
 }
 
 .side{
-    width: 40vw;
+    width: 30vw;
 } 
 
 .cartProductTitle{
@@ -32,6 +32,12 @@ header{
 mat-card-content{
     label{
         margin-left: 60px;
+    }
+    .delete{
+        position: absolute;
+        padding-left: 66px;
+        margin-bottom: 4px;
+        cursor: pointer;
     }
 }
 

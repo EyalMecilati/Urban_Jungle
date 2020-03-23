@@ -9,6 +9,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [],
@@ -25,6 +27,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatSidenavModule,
     MatDialogModule,
     MatButtonModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }
