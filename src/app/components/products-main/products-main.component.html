@@ -21,10 +21,12 @@
         <footer>
             <h3 *ngIf="errorMsg">{{errorMsg}}</h3>
             <h4>total sum: {{totlalSumFromOldOrder}}</h4>
+            <button mat-stroked-button (click)="removeItemFromCart()">Empty Cart</button>
+
         </footer>
     </mat-drawer>
     <!-- main view -->
-    <mat-drawer-content>
+    <mat-drawer-content class="mainView">
         <header>
             <input placeholder="          search product" type="text" [(ngModel)]="searchTerm">
             <h2>Products</h2>
@@ -33,20 +35,24 @@
             </span>
         </header>
         <div class="products">
-            <div class="categorySort" *ngFor="let category of categorys">
-                <div class="wrapper" *ngFor="let product of products">
-                    <mat-card class="Productbox" *ngIf="product.category_id._id == category._id">
-                        <h1>{{category.category_name}}</h1>
-                        <mat-card-header class="productHeader">
-                            <mat-card-title class="cartProductTitle"
-                                [innerHTML]='product.prdouct_name |colorYellow:searchTerm'></mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <img class="productImg" [src]="product.img_url" alt="User Avatar">
-                            <p>Price: {{product.price}}</p>
-                            <button mat-raised-button (click)="openDialog(product)">Add item to Cart</button>
-                        </mat-card-content>
-                    </mat-card>
+            <div class="categorySort" *ngFor="let category of productsByCategory; let i = index">
+                <div class="cardContainer">
+                    <h1 class="categoryName">{{category[i].category_id.category_name}}</h1>
+                    <div class="wrapper">
+                        <div *ngFor="let product of category">
+                            <mat-card class="Productbox">
+                                <mat-card-header class="productHeader">
+                                    <mat-card-title class="cartProductTitle"
+                                        [innerHTML]='product.prdouct_name |colorYellow:searchTerm'></mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <img class="productImg" [src]="product.img_url" alt="User Avatar">
+                                    <p>Price: {{category[i] .price}}</p>
+                                    <button mat-raised-button (click)="openDialog(product)">Add item to Cart</button>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -35,8 +35,8 @@ mat-card-content{
     }
     .delete{
         position: absolute;
-        padding-left: 66px;
-        margin-bottom: 4px;
+        right: 10px;
+       
         cursor: pointer;
     }
 }
@@ -49,9 +49,11 @@ mat-card-content{
 
 .products{
     display: flex;
+    flex-direction: column;
+    margin: 10px;
     .Productbox{
-        border: 1px white solid;
         margin: 10px;
+        border: 1px white solid;
         .productHeader{
             height: fit-content;
             margin: 0px;
@@ -59,11 +61,22 @@ mat-card-content{
         p{
             margin: 10px;
         }
-        // input{
-        //     width: 5px;
-        // }
-        
     }
+}
+
+.wrapper{
+    display: flex !important;
+    flex-direction: row;
+}
+
+.categoryName{
+    color: green;
+
+}
+
+.mainView{
+    display: flex;
+    flex-wrap: wrap;
 }
 
 footer{

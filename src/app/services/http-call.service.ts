@@ -91,4 +91,9 @@ export class HttpCallService {
     return this.http.post<any>('http://localhost:1000/api/cart/remove-product/' + cart_id, id)
   }
 
+  // empty cart 
+  public emptyCart():Observable<any>{
+    return this.http.get<any>('http://localhost:1000/api/cart/delete-all-products/'+this.cart)
+  }
+
 }

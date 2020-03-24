@@ -11,6 +11,7 @@ import { DialogData } from '../../interfaces/DialogData ';
 import { ModalComponent } from './modal/modal.component';
 
 
+
 @Component({
   selector: 'app-products-main',
   templateUrl: './products-main.component.html',
@@ -31,6 +32,7 @@ export class ProductsMainComponent implements OnInit {
   public cart: any;
   public errorMsg: any = false
   public loading: boolean = false;
+  public productsByCategory = [];
 
   constructor(public httpCallService: HttpCallService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, private cd: ChangeDetectorRef) { }
 
@@ -38,17 +40,35 @@ export class ProductsMainComponent implements OnInit {
     this.productsFromLastOrder = [];
     this.addThisToCart = {}
     this.getProducts();
-    this.getCategory();
+    // this.getCategory();
     this.openCart();
   }
+
+  public getCategory() {
+
+  };
 
   public getProducts() {
     this.loading = true;
     this.httpCallService.getAllProducts().subscribe(
       res => {
-        this.loading = false;
         this.products = res
-        console.log(res)
+        this.httpCallService.getAllCategory().subscribe(
+          result => {
+            this.categorys = result;
+            for (let cat of result) {
+              let filterProduct = res.filter(prod => prod.category_id._id == cat._id)
+              if (filterProduct[0]) {
+                this.productsByCategory.push(filterProduct)
+              }
+            }
+            this.loading = false;
+          },
+          err => {
+            this.loading = false;
+            console.log(err)
+          }
+        )
       },
       err => console.log(err)
     )
@@ -58,16 +78,6 @@ export class ProductsMainComponent implements OnInit {
     this.httpCallService.getProductByCategory(id).subscribe(
       res => {
         this.products = res;
-      },
-      err => console.log(err)
-    )
-  };
-
-  public getCategory() {
-    this.httpCallService.getAllCategory().subscribe(
-      res => {
-        this.categorys = res;
-        console.log(res)
       },
       err => console.log(err)
     )
@@ -176,23 +186,27 @@ export class ProductsMainComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.amount = result;
-      const sum = this.addThisToCart.price * result;
-      const productObj = {
-        prdouct_id: this.addThisToCart.prdouct_id,
-        quantity: result,
-        sum: sum,
-        cart_id: this.httpCallService.cart
-      }
-      const token = localStorage.getItem('token');
-      this.httpCallService.addProductToCart(productObj, token).subscribe(
-        res => {
-          this.addtoCart(res);
-        },
-        err => {
-          return this.errorMsg = 'this item is alredy in your cart you can change the quantity inside your cart';
+      if (result == 'dontAdd') {
+        return this.errorMsg = '';
+      } else {
+        this.amount = result;
+        const sum = this.addThisToCart.price * result;
+        const productObj = {
+          prdouct_id: this.addThisToCart.prdouct_id,
+          quantity: result,
+          sum: sum,
+          cart_id: this.httpCallService.cart
         }
-      );
+        const token = localStorage.getItem('token');
+        this.httpCallService.addProductToCart(productObj, token).subscribe(
+          res => {
+            this.addtoCart(res);
+          },
+          err => {
+            return this.errorMsg = 'this item is alredy in your cart you can change the quantity inside your cart';
+          }
+        );
+      }
 
     });
   }
@@ -200,11 +214,19 @@ export class ProductsMainComponent implements OnInit {
   public removeProductFromCart(id) {
     this.httpCallService.removeItemFromCart(id, this.httpCallService.cart).subscribe(
       res => {
-        // this.openCart();
         this.getCartInfoForOpenCart()
       }, err => console.log(err)
     );
   };
+
+  public removeItemFromCart() {
+    this.httpCallService.emptyCart().subscribe(
+      res => {
+        this.getCartInfoForOpenCart();
+      },
+      err => console.log(err)
+    )
+  }
 
 }
 
