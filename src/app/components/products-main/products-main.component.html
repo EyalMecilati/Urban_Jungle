@@ -6,11 +6,9 @@
             <h2>Your Cart</h2>
         </header>
         <mat-card class="cartProduct" *ngFor="let product of userCart; let i = index">
-            <mat-card-header>
-                <img mat-card-avatar [src]="productsFromLastOrder[i].img_url" alt="User Avatar">
-                <mat-card-title class="cartProductTitle">{{productsFromLastOrder[i].prdouct_name}}</mat-card-title>
-            </mat-card-header>
             <mat-card-content>
+                <img mat-card-avatar [src]="productsFromLastOrder[i].img_url" alt="User Avatar">
+                <span class="cartProductTitle">{{productsFromLastOrder[i].prdouct_name}}</span>
                 <label>Quantity: {{product.quantity}}</label>
                 <label>Price: {{productsFromLastOrder[i].price}}</label>
                 <span class="material-icons delete" (click)='removeProductFromCart(product)'>
@@ -22,7 +20,7 @@
             <h3 *ngIf="errorMsg">{{errorMsg}}</h3>
             <h4>total sum: {{totlalSumFromOldOrder}}</h4>
             <button mat-stroked-button (click)="removeItemFromCart()">Empty Cart</button>
-
+            <button mat-stroked-button (click)="gotoOrder()">Order</button>
         </footer>
     </mat-drawer>
     <!-- main view -->
@@ -57,4 +55,9 @@
             </div>
         </div>
     </mat-drawer-content>
+    <!-- order view  -->
+    <mat-drawer-content class="mainView">
+        <app-oredr></app-oredr>
+    </mat-drawer-content>
+
 </mat-drawer-container>

@@ -69,6 +69,12 @@ export class HttpCallService {
   public getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>('http://localhost:1000/api/order');
   }
+  // get specific order
+  public getOneOrder(id): Observable<any> {
+    console.log(id)
+    return this.http.get<any>('http://localhost:1000/api/order/' + id.id);
+  }
+
 
   // add product to cart 
   public addProductToCart(product, token): Observable<any> {
@@ -87,13 +93,23 @@ export class HttpCallService {
 
   // remove product from cart 
   public removeItemFromCart(productId, cart_id): Observable<any> {
-    const id = {productId:productId}
+    const id = { productId: productId }
     return this.http.post<any>('http://localhost:1000/api/cart/remove-product/' + cart_id, id)
   }
 
   // empty cart 
-  public emptyCart():Observable<any>{
-    return this.http.get<any>('http://localhost:1000/api/cart/delete-all-products/'+this.cart)
+  public emptyCart(): Observable<any> {
+    return this.http.get<any>('http://localhost:1000/api/cart/delete-all-products/' + this.cart)
+  }
+
+  // make oreder
+  public sendOrder(token): Observable<any> {
+    return this.http.post<any>('http://localhost:1000/api/order', { cart_id: this.cart }, {
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`
+      }
+    })
   }
 
 }

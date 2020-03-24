@@ -17,6 +17,7 @@ import { AboutMainComponent } from './components/about-main/about-main.component
 import { ColorYellowPipe } from './pipes/color-yellow.pipe';
 import { StoreInfoComponent } from './components/store-info/store-info.component';
 import { ModalComponent } from './components/products-main/modal/modal.component';
+import { OredrComponent } from './components/oredr/oredr.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ModalComponent } from './components/products-main/modal/modal.component
     AboutMainComponent,
     ColorYellowPipe,
     StoreInfoComponent,
-    ModalComponent
+    ModalComponent,
+    OredrComponent
   ],
   imports: [
     BrowserModule,

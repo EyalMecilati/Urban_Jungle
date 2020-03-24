@@ -10,6 +10,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatMomentDateModule, MomentDateAdapter } from "@angular/material-moment-adapter";
+
 
 
 @NgModule({
@@ -27,7 +30,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatSidenavModule,
     MatDialogModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule, 
+    MatDatepickerModule,
+    MatMomentDateModule,
+     MomentDateAdapter
   ]
 })
 export class MaterialModule { }

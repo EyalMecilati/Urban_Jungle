@@ -5,6 +5,8 @@
 }
 
 .side{
+    border: 3px solid white;
+    background-color: #ecb390;
     width: 30vw;
 } 
 
@@ -75,6 +77,8 @@ mat-card-content{
 }
 
 .mainView{
+    border: 3px solid white;
+    background-color: #ecb390;
     display: flex;
     flex-wrap: wrap;
 }

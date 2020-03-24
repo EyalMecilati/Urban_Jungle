@@ -5,11 +5,13 @@ import { LoginMainComponent } from './components/login-main/login-main.component
 import { MainComponent } from './components/main/main.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RejisterComponent } from './components/rejister/rejister.component';
+import { OredrComponent } from './components/oredr/oredr.component';
 
 
 const routes: Routes = [
   { path: 'welcome-to-the-jungle', component: MainComponent },
   { path: 'products/:id', component: ProductsMainComponent },
+  { path: 'order/:id', component: OredrComponent },
   { path: 'login', component: LoginMainComponent },
   { path: 'rejister', component: RejisterComponent },
   { path: '', redirectTo: '/welcome-to-the-jungle', pathMatch: 'full' },

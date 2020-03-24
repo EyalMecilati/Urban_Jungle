@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { HttpCallService } from 'src/app/services/http-call.service';
 import { Product } from 'src/app/interfaces/products';
 import { Category } from 'src/app/interfaces/Category';
-import { ActivatedRoute, Params } from '@angular/router'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import { Cart } from 'src/app/interfaces/Cart';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -34,19 +34,14 @@ export class ProductsMainComponent implements OnInit {
   public loading: boolean = false;
   public productsByCategory = [];
 
-  constructor(public httpCallService: HttpCallService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, private cd: ChangeDetectorRef) { }
+  constructor(public httpCallService: HttpCallService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, private cd: ChangeDetectorRef, private router:Router) { }
 
   ngOnInit(): void {
     this.productsFromLastOrder = [];
     this.addThisToCart = {}
     this.getProducts();
-    // this.getCategory();
     this.openCart();
   }
-
-  public getCategory() {
-
-  };
 
   public getProducts() {
     this.loading = true;
@@ -226,6 +221,22 @@ export class ProductsMainComponent implements OnInit {
       },
       err => console.log(err)
     )
+  }
+
+  public gotoOrder() {
+    let token = localStorage.getItem('token')
+    this.httpCallService.sendOrder(token).subscribe(res => {
+      let order_id;
+      if (res[1]) {
+        order_id = res[res.length - 1]._id;
+      }
+      else {
+        order_id = res[0]._id;
+      }
+      this.router.navigate(['/order/' + order_id]);
+    }, err => {
+      this.errorMsg = 'please try again';
+    })
   }
 
 }
