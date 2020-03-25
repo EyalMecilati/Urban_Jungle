@@ -104,7 +104,7 @@ export class HttpCallService {
 
   // make oreder
   public sendOrder(token,order,sum): Observable<any> {
-    const orderObj =  { cart_id: this.cart,...order,total_sum:sum }
+    const orderObj =  { cart_id: this.cart,...order,total_sum:sum}
     console.log(orderObj)
     return this.http.post<any>('http://localhost:1000/api/order',orderObj, {
       headers: {
