@@ -18,6 +18,8 @@ import { ColorYellowPipe } from './pipes/color-yellow.pipe';
 import { StoreInfoComponent } from './components/store-info/store-info.component';
 import { ModalComponent } from './components/products-main/modal/modal.component';
 import { OredrComponent } from './components/oredr/oredr.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { OredrComponent } from './components/oredr/oredr.component';
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatInputModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,66 @@
 .container{
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    background-color: #6F8634;
 }
+
+.sideOrder{
+    background-color: #6D8F21;
+}
+
+header{
+    margin: 20px;
+}
+
+.cartProduct{
+    margin: 20px;
+}
+
+.details{
+    label{
+        padding-right: 30px;
+    }
+    span{
+        position: relative;
+        top: 4px;
+    }
+}
+
+.form{
+    width: fit-content;
+    position: relative;
+    left: 30%;
+    top: 30%; 
+}
+
+.submit{
+    display: block;
+    margin-left: 36%;
+    color: #de7119 !important;
+    border: solid 1px white;
+    font-weight: bold;
+}
+
+.toggleCart{
+    margin: 20px 0px 0px 10px;
+}
+
+footer{
+    margin: 20px;
+    h4{
+        margin-left: 50px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .form{
+        width: 215px;
+        position: relative;
+        left: 21%;
+        top: 10%;
+    }
+    .submit{
+        margin-left: 23%;
+    }
+}
+

@@ -9,7 +9,8 @@ background-size: cover;
  }
 
  .mat-card{
-    background-color: #ecb390;
+    background: transparent;
+    border: 1px solid white;
  }
 
 *{
@@ -27,7 +28,7 @@ background-size: cover;
 
 mat-card-title {
     font-family: 'Patrick Hand', cursive;
-    color: green;
+    // color: green;
 }
 
 .spinner{

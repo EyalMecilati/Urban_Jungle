@@ -1,5 +1,6 @@
 
 .card{
+    font-weight: bold;
     margin: 30px;
     padding: 10px;
     width: 200px;
@@ -57,4 +58,8 @@ label,input{
 .error{
     padding-top: 5px;
     font-size: 15px;
+}
+
+mat-card-title{
+    color: #c81912;
 }

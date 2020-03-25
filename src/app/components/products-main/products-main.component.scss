@@ -1,14 +1,50 @@
 .container{
+    background-image: url('https://www.meister.com/_Resources/Persistent/a/d/b/5/adb5f47a586a1a2aa054984687e9c2b869b811b6/8748_Lindura_HD400_naturgeoelt_Ambiente_Detail_01-web-1432x806.jpg');
     width: 100vw;
     height: 100vh;
-    // scroll-behavior: unset;
 }
 
 .side{
     border: 3px solid white;
-    background-color: #ecb390;
+    background-color: #899FB4; 
     width: 30vw;
 } 
+
+@media only screen and (max-width: 600px) {
+    .wrapper{
+    flex-direction: column !important;
+    }
+
+    .Productbox{
+        width: 300px;
+    }
+
+    .side{
+        width: 95vw;
+    }
+    .products{
+        text-align: center;
+    }
+    .addItem{
+    display: block;
+    margin-left: 25% !important;
+    }
+  }
+
+.headerDetails{
+    margin-left: 25%;
+    padding-bottom: 3px;
+}
+
+.details{
+    label{
+        padding-right: 60px;
+    }
+    span{
+        position: relative;
+        top: 4px;
+    }
+}
 
 .cartProductTitle{
     line-height: 2;
@@ -17,13 +53,12 @@
 
 header{
     width: 100%;
-    height: 100px;
+    height: 10%;
     text-align: center;
     h2{
         position: relative;
         top: 45%;
         left: 0%;
-        text-decoration: underline;
     }
     .material-icons{
         position: absolute;
@@ -31,27 +66,33 @@ header{
     }
 }
 
+.mat-card{
+    font-size: larger;
+    font-weight: bold;
+}
+
 mat-card-content{
     label{
-        margin-left: 60px;
+        margin-left: 15px;
     }
-    .delete{
-        position: absolute;
-        right: 10px;
-       
+    .delete{  
         cursor: pointer;
     }
 }
 
+.mat-card-title{
+    font-weight: bold;
+}
+
 .productImg{
-    height: 80px;
-    width: 100px;
-    margin-left: 23%;
+    padding-left: 1rem;
+    height: 6rem;
 }
 
 .products{
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     margin: 10px;
     .Productbox{
         margin: 10px;
@@ -69,16 +110,11 @@ mat-card-content{
 .wrapper{
     display: flex !important;
     flex-direction: row;
-}
-
-.categoryName{
-    color: green;
-
+    max-width: 10rem;
 }
 
 .mainView{
     border: 3px solid white;
-    background-color: #ecb390;
     display: flex;
     flex-wrap: wrap;
 }
@@ -86,4 +122,26 @@ mat-card-content{
 footer{
     text-align: center;
     margin: 30px;
+}
+
+.price{
+    position: absolute;
+    z-index: 2;
+    right: 15px;
+    transform: rotate(20deg);
+
+}
+
+.addItem{
+    margin-top: 10px;
+    color: black;
+    background-color: white;
+    opacity: 70%
+}
+
+.categoryName{
+    // background-color: floralwhite;
+    padding: 4px;
+    color: blanchedalmond;
+    width: fit-content;
 }

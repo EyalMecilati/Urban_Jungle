@@ -6,6 +6,7 @@
     opacity: 69%;
     background: white;
     color: #42240c ;
+    font-weight: bold;
 }
 
 em{
@@ -15,4 +16,12 @@ em{
 
 .mat-card-subtitle {
     color: #42240c 
+}
+
+.header{
+    margin-bottom: 25px;
+}
+
+mat-card-title{
+    color: #c81912;
 }

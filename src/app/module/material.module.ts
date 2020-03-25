@@ -5,13 +5,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatMomentDateModule, MomentDateAdapter } from "@angular/material-moment-adapter";
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatBadgeModule} from '@angular/material/badge';
+// import {MatNativeDateModule} from '@angular/material/core';
+
 
 
 
@@ -26,14 +27,12 @@ import { MatMomentDateModule, MomentDateAdapter } from "@angular/material-moment
     MatChipsModule,
     MatStepperModule,
     MatFormFieldModule,
-    MatSelectModule, 
+    MatSelectModule,
     MatSidenavModule,
     MatDialogModule,
     MatButtonModule,
-    MatProgressSpinnerModule, 
-    MatDatepickerModule,
-    MatMomentDateModule,
-     MomentDateAdapter
+    MatProgressSpinnerModule,
+    MatBadgeModule,
   ]
 })
 export class MaterialModule { }

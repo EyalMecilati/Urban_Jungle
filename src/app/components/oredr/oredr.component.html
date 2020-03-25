@@ -1,46 +1,58 @@
-<mat-drawer-container class="container" *ngIf="order">
-    <!-- side view (cart order) -->
-    <mat-drawer class="side" mode="side" [opened]='opened'>
+<mat-drawer-container class="container">
+    <!-- side view  -->
+    <mat-drawer class="sideOrder" mode="side" [opened]='opened'>
         <header>
+            <span (click)='toggleCart()' class="material-icons">
+                reorder
+            </span>
             <h2>Your Order</h2>
         </header>
-        <mat-card class="cartProduct" *ngFor="let product of order.cart_id.carts_info; let i = index">
+        <mat-card class="cartProduct" *ngFor="let product of userCart; let i = index">
             <mat-card-content>
-                <img mat-card-avatar [src]="products[i].img_url" alt="User Avatar">
-                <span class="cartProductTitle">{{products[i].prdouct_name}}</span>
-                <label>Quantity: {{product.quantity}}</label>
-                <label>Price: {{product.price}}</label>
+                <div class="headerDetails">
+                    <img mat-card-avatar [src]="productsFromLastOrder[i].img_url" alt="User Avatar">
+                    <span class="cartProductTitle">{{productsFromLastOrder[i].prdouct_name}}</span>
+                </div>
+                <div class="details">
+                    <label>Quantity: {{product.quantity}}</label>
+                    <label>Price: {{productsFromLastOrder[i].price}}</label>
+                </div>
             </mat-card-content>
         </mat-card>
         <footer>
-            <h4>total sum: {{sum}}</h4>
-            <button mat-stroked-button>Empty Cart</button>
+            <h4>total sum: {{totlalSumFromOldOrder}}</h4>
         </footer>
     </mat-drawer>
-    <!-- main view (cart order) -->
-    <mat-drawer-content class="mainView">
-        <form>
+    <!-- main view -->
+    <mat-drawer-content class="orderFormContainer">
+        <span (click)='toggleCart()' class="material-icons toggleCart">
+            reorder
+        </span>
+        <form class="form" [formGroup]='orderForm' (ngSubmit)='sendNewOrder()'>
             <div class="example-container">
                 <mat-form-field appearance="fill">
                     <mat-label>Select City</mat-label>
-                    <mat-select>
-                        <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
+                    <mat-select formControlName='city'>
+                        <mat-option *ngFor="let cityname of cities" [value]="cityname">{{cityname}}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
                     <mat-label>Street</mat-label>
-                    <input matInput placeholder="">
+                    <input matInput formControlName='street'>
                 </mat-form-field>
-
-                <mat-form-field> 
-                    <mat-label>Choose a date for delivery</mat-label>
-                    <input matInput [matDatepicker]="picker">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
- 
-            </div>                    
+            </div>
+            <mat-form-field>
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" [min]='minDate' formControlName='shippingDate'>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Credit Card Number</mat-label>
+                <input matInput type="number" formControlName='creditCard'>
+            </mat-form-field>
+            <button mat-button [disabled]="orderForm.invalid" class="submit">Sent Order</button>
         </form>
     </mat-drawer-content>
 

@@ -33,6 +33,7 @@ export class ProductsMainComponent implements OnInit {
   public errorMsg: any = false
   public loading: boolean = false;
   public productsByCategory = [];
+  public openOrder:boolean = true;
 
   constructor(public httpCallService: HttpCallService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, private cd: ChangeDetectorRef, private router:Router) { }
 
@@ -50,6 +51,7 @@ export class ProductsMainComponent implements OnInit {
         this.products = res
         this.httpCallService.getAllCategory().subscribe(
           result => {
+            console.log(res)
             this.categorys = result;
             for (let cat of result) {
               let filterProduct = res.filter(prod => prod.category_id._id == cat._id)
@@ -57,6 +59,7 @@ export class ProductsMainComponent implements OnInit {
                 this.productsByCategory.push(filterProduct)
               }
             }
+            console.log(this.productsByCategory)
             this.loading = false;
           },
           err => {
@@ -224,20 +227,9 @@ export class ProductsMainComponent implements OnInit {
   }
 
   public gotoOrder() {
-    let token = localStorage.getItem('token')
-    this.httpCallService.sendOrder(token).subscribe(res => {
-      let order_id;
-      if (res[1]) {
-        order_id = res[res.length - 1]._id;
-      }
-      else {
-        order_id = res[0]._id;
-      }
-      this.router.navigate(['/order/' + order_id]);
-    }, err => {
-      this.errorMsg = 'please try again';
-    })
-  }
+    this.openOrder = false;
+};
+
 
 }
 

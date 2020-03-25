@@ -1,19 +1,26 @@
-<mat-spinner color='Accent' class="spinner" *ngIf="loading"></mat-spinner>
-<mat-drawer-container class="container">
+<mat-drawer-container class="container" *ngIf="openOrder">
+    <mat-spinner color='Accent' class="spinner" *ngIf="loading"></mat-spinner>
     <!-- side cart -->
     <mat-drawer class="side" mode="side" [opened]='opened'>
         <header>
+            <span (click)='toggleCart()' class="material-icons">
+                reorder
+            </span>
             <h2>Your Cart</h2>
         </header>
         <mat-card class="cartProduct" *ngFor="let product of userCart; let i = index">
             <mat-card-content>
-                <img mat-card-avatar [src]="productsFromLastOrder[i].img_url" alt="User Avatar">
-                <span class="cartProductTitle">{{productsFromLastOrder[i].prdouct_name}}</span>
+                <div class="headerDetails">
+                    <img mat-card-avatar [src]="productsFromLastOrder[i].img_url" alt="User Avatar">
+                    <span class="cartProductTitle">{{productsFromLastOrder[i].prdouct_name}}</span>
+                </div>
+                <div class="details">
                 <label>Quantity: {{product.quantity}}</label>
-                <label>Price: {{productsFromLastOrder[i].price}}</label>
-                <span class="material-icons delete" (click)='removeProductFromCart(product)'>
-                    delete
-                </span>
+                    <label>Price: {{productsFromLastOrder[i].price}}</label>
+                    <span class="material-icons delete" (click)='removeProductFromCart(product)'>
+                        delete
+                    </span>
+                </div>
             </mat-card-content>
         </mat-card>
         <footer>
@@ -26,11 +33,11 @@
     <!-- main view -->
     <mat-drawer-content class="mainView">
         <header>
-            <input placeholder="          search product" type="text" [(ngModel)]="searchTerm">
-            <h2>Products</h2>
             <span (click)='toggleCart()' class="material-icons">
                 reorder
             </span>
+            <input placeholder="          search product" type="text" [(ngModel)]="searchTerm">
+            <h2>Products</h2>
         </header>
         <div class="products">
             <div class="categorySort" *ngFor="let category of productsByCategory; let i = index">
@@ -40,13 +47,16 @@
                         <div *ngFor="let product of category">
                             <mat-card class="Productbox">
                                 <mat-card-header class="productHeader">
-                                    <mat-card-title class="cartProductTitle"
-                                        [innerHTML]='product.prdouct_name |colorYellow:searchTerm'></mat-card-title>
-                                </mat-card-header>
+                                    <span class="price" [matBadge]="product.price" matBadgeColor="warn">price</span>
+                                    <!-- Include text description of the icon's meaning for screen-readers -->
+                                    <!-- <mat-card-title class="cartProductTitle"
+                                        [innerHTML]='product.prdouct_name |colorYellow:searchTerm'></mat-card-title> -->
+                                        <mat-card-title class="cartProductTitle">{{product.prdouct_name}}</mat-card-title>
+                                        <!-- <span class="price">Price: {{category[i].price}}</span> -->
+                                    </mat-card-header>
                                 <mat-card-content>
                                     <img class="productImg" [src]="product.img_url" alt="User Avatar">
-                                    <p>Price: {{category[i] .price}}</p>
-                                    <button mat-raised-button (click)="openDialog(product)">Add item to Cart</button>
+                                    <button class="addItem" mat-stroked-button (click)="openDialog(product)">Add item to Cart</button>
                                 </mat-card-content>
                             </mat-card>
                         </div>
@@ -55,9 +65,6 @@
             </div>
         </div>
     </mat-drawer-content>
-    <!-- order view  -->
-    <mat-drawer-content class="mainView">
-        <app-oredr></app-oredr>
-    </mat-drawer-content>
-
+    
 </mat-drawer-container>
+<app-oredr *ngIf="!openOrder" [userCart]='userCart' [productsFromLastOrder]='productsFromLastOrder' [totlalSumFromOldOrder]='totlalSumFromOldOrder'></app-oredr>

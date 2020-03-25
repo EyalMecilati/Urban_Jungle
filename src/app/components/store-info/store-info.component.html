@@ -4,7 +4,7 @@
     </mat-card-subtitle>
     <mat-card-subtitle>we have to offer you at least <em>{{productsNum}}</em> items for sale</mat-card-subtitle>
     <mat-card-content *ngIf="httpCallService.storeInfoTotalSum">
-        <h3>Hi you have an open cart from {{httpCallService.openCartFrom | date}} with a total sum of
-            {{httpCallService.storeInfoTotalSum |  currency:'ILS'}}</h3>
+        <p>Hi you have an open cart from {{httpCallService.openCartFrom | date}} with a total sum of
+            {{httpCallService.storeInfoTotalSum |  currency:'ILS'}}</p>
     </mat-card-content>
 </mat-card>
