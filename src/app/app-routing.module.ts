@@ -11,7 +11,6 @@ import { OredrComponent } from './components/oredr/oredr.component';
 const routes: Routes = [
   { path: 'welcome-to-the-jungle', component: MainComponent },
   { path: 'products/:id', component: ProductsMainComponent },
-  { path: 'order/:id', component: OredrComponent },
   { path: 'login', component: LoginMainComponent },
   { path: 'rejister', component: RejisterComponent },
   { path: '', redirectTo: '/welcome-to-the-jungle', pathMatch: 'full' },

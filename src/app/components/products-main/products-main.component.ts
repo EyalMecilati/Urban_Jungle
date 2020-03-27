@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpCallService } from 'src/app/services/http-call.service';
 import { Product } from 'src/app/interfaces/products';
 import { Category } from 'src/app/interfaces/Category';
@@ -33,9 +33,10 @@ export class ProductsMainComponent implements OnInit {
   public errorMsg: any = false
   public loading: boolean = false;
   public productsByCategory = [];
-  public openOrder:boolean = true;
+  public openOrder: boolean = true;
+  public productFilter: any = false;
 
-  constructor(public httpCallService: HttpCallService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, private cd: ChangeDetectorRef, private router:Router) { }
+  constructor(public httpCallService: HttpCallService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     this.productsFromLastOrder = [];
@@ -45,16 +46,18 @@ export class ProductsMainComponent implements OnInit {
   }
 
   public getProducts() {
+    let productCheck;
+    this.productsByCategory = [];
     this.loading = true;
     this.httpCallService.getAllProducts().subscribe(
       res => {
-        this.products = res
+        this.products = res;
         this.httpCallService.getAllCategory().subscribe(
           result => {
-            console.log(res)
             this.categorys = result;
             for (let cat of result) {
               let filterProduct = res.filter(prod => prod.category_id._id == cat._id)
+              console.log(filterProduct)
               if (filterProduct[0]) {
                 this.productsByCategory.push(filterProduct)
               }
@@ -64,20 +67,36 @@ export class ProductsMainComponent implements OnInit {
           },
           err => {
             this.loading = false;
-            console.log(err)
           }
         )
       },
-      err => console.log(err)
+      err => {
+        this.loading = false;
+      }
     )
   }
   // get products by category
   public getProductByCategory(id) {
+    this.productsByCategory = [];
+    this.loading = true;
     this.httpCallService.getProductByCategory(id).subscribe(
       res => {
-        this.products = res;
+        if (res[0]) {
+          this.productFilter = res;
+          let productArr = []
+          for (let product of this.productFilter) {
+            productArr.push(product);
+          }
+          this.productsByCategory.push(productArr);
+          console.log(this.productsByCategory)
+        }
+        else {
+          this.products = [];
+        }
       },
-      err => console.log(err)
+      err => {
+        this.loading = false
+      }
     )
   };
 
@@ -92,10 +111,18 @@ export class ProductsMainComponent implements OnInit {
         this.userCart = res[0].carts_info;
         this.productsFromLastOrder = [];
         this.totlalSumFromOldOrder = 0;
+        let productCheck;
+        if (this.products[0]) {
+          productCheck = this.products
+          console.log('1', productCheck)
+        } else {
+          productCheck = this.productFilter
+          console.log('2')
+        }
         // total sum and get more information about the products
         for (let i = 0; i < res[0].carts_info.length; i++) {
           this.totlalSumFromOldOrder += this.userCart[i].sum;
-          let product1 = this.products.filter(product => product._id == this.userCart[i].prdouct_id);
+          let product1 = productCheck.filter(product => product._id == this.userCart[i].prdouct_id);
           let orderProduct = product1[0];
           if (!this.productsFromLastOrder.includes(orderProduct)) {
             this.productsFromLastOrder.push(orderProduct)
@@ -109,8 +136,6 @@ export class ProductsMainComponent implements OnInit {
     this.loading = true
     this.errorMsg = false;
     let user_idNum: Params;
-
-
     this.activatedRoute.params.subscribe(
       parmas => user_idNum = parmas
     );
@@ -121,11 +146,21 @@ export class ProductsMainComponent implements OnInit {
           this.userCart = res[0].carts_info;
           this.productsFromLastOrder = [];
           this.totlalSumFromOldOrder = 0;
+          let productCheck;
+          if (this.products[0]) {
+            productCheck = this.products
+            console.log('1', productCheck)
+          } else {
+            productCheck = this.productFilter
+            console.log('2')
+          }
           // total sum and get more information about the products
+          console.log(this.userCart)
           for (let i = 0; i < res[0].carts_info.length; i++) {
             this.totlalSumFromOldOrder += this.userCart[i].sum;
-            let product1 = this.products.filter(product => product._id == this.userCart[i].prdouct_id);
+            let product1 = productCheck.filter(product => product._id == this.userCart[i].prdouct_id);
             let orderProduct = product1[0];
+            console.log(this.userCart)
             if (!this.productsFromLastOrder.includes(orderProduct)) {
               this.productsFromLastOrder.push(orderProduct)
             }
@@ -148,6 +183,7 @@ export class ProductsMainComponent implements OnInit {
   // add item to the cart 
 
   public addtoCart(res) {
+    this.loading = true;
     this.totlalSumFromOldOrder = 0;
     let resultId = res;
     if (res._id) {
@@ -157,25 +193,36 @@ export class ProductsMainComponent implements OnInit {
       this.httpCallService.cart = res[0]._id;
       resultId = res[0]._id;
     }
+    let productCheck;
+    if (this.products[0]) {
+      productCheck = this.products
+      console.log('1')
+    } else {
+      productCheck = this.productFilter
+      console.log('2')
+    }
     this.httpCallService.getCartById(resultId).subscribe(
       result => {
+        this.productsFromLastOrder = [];
         this.userCart = result[0].carts_info;
         for (let i = 0; i < result[0].carts_info.length; i++) {
           this.totlalSumFromOldOrder += this.userCart[i].sum;
-          let product1 = this.products.filter(product => product._id == this.userCart[i].prdouct_id._id);
+          let product1 = productCheck.filter(product => product._id == this.userCart[i].prdouct_id._id);
           let orderProduct = product1[0];
           if (!this.productsFromLastOrder.includes(orderProduct)) {
             this.productsFromLastOrder.push(orderProduct);
           };
         }
+        this.loading = true;
       }, err => {
-        console.log(err);
+        this.loading = true;
       }
     )
   }
 
   // dialog logic add item to cart
   openDialog(productInfo): void {
+    console.log(productInfo)
     this.errorMsg = false;
     this.addThisToCart = { prdouct_name: productInfo.prdouct_name, price: productInfo.price, prdouct_id: productInfo._id };
     const dialogRef = this.dialog.open(ModalComponent, {
@@ -201,14 +248,14 @@ export class ProductsMainComponent implements OnInit {
             this.addtoCart(res);
           },
           err => {
-            return this.errorMsg = 'this item is alredy in your cart you can change the quantity inside your cart';
+            return this.errorMsg = 'this item is alredy in your cart you can delete  and reorder with the correct amount';
           }
         );
       }
 
     });
   }
-
+  // empty cart
   public removeProductFromCart(id) {
     this.httpCallService.removeItemFromCart(id, this.httpCallService.cart).subscribe(
       res => {
@@ -216,7 +263,7 @@ export class ProductsMainComponent implements OnInit {
       }, err => console.log(err)
     );
   };
-
+  // remove item
   public removeItemFromCart() {
     this.httpCallService.emptyCart().subscribe(
       res => {
@@ -228,7 +275,7 @@ export class ProductsMainComponent implements OnInit {
 
   public gotoOrder() {
     this.openOrder = false;
-};
+  };
 
 
 }

@@ -1,7 +1,8 @@
 .container{
     background-image: url('https://www.meister.com/_Resources/Persistent/a/d/b/5/adb5f47a586a1a2aa054984687e9c2b869b811b6/8748_Lindura_HD400_naturgeoelt_Ambiente_Detail_01-web-1432x806.jpg');
-    width: 100vw;
+    width: 100%;
     height: 100vh;
+    background-color: #84a9ac;
 }
 
 .side{
@@ -28,6 +29,14 @@
     .addItem{
     display: block;
     margin-left: 25% !important;
+    }
+    .empty{
+        left: 12% !important;
+        padding: 5px !important;
+        font-size: smaller;
+    }
+    .mainHeafer{
+        margin-bottom: 140px !important;
     }
   }
 
@@ -140,8 +149,36 @@ footer{
 }
 
 .categoryName{
-    // background-color: floralwhite;
     padding: 4px;
     color: blanchedalmond;
     width: fit-content;
+}
+
+.productsBtn{
+    display: block;
+    position: relative;
+    left: 40%;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    font-size: larger;
+}
+
+.mainHeafer{
+    margin-bottom: 70px;
+}
+
+.empty{
+    font-size: x-large;
+    color: red;
+    position: absolute;
+    left: 27%;
+    top: 45%;
+    border: 2px solid white;
+    padding: 30px;
+}
+
+.arrow{
+    // color: red;
+    font-size: 60px;
 }
