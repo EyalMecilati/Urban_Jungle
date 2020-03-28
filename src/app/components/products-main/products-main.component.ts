@@ -9,6 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from '../../interfaces/DialogData ';
 import { ModalComponent } from './modal/modal.component';
+import { User } from 'src/app/interfaces/user';
 
 
 
@@ -35,6 +36,7 @@ export class ProductsMainComponent implements OnInit {
   public productsByCategory = [];
   public openOrder: boolean = true;
   public productFilter: any = false;
+  public userInfo:User
 
   constructor(public httpCallService: HttpCallService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, private router: Router) { }
 
@@ -57,12 +59,10 @@ export class ProductsMainComponent implements OnInit {
             this.categorys = result;
             for (let cat of result) {
               let filterProduct = res.filter(prod => prod.category_id._id == cat._id)
-              console.log(filterProduct)
               if (filterProduct[0]) {
                 this.productsByCategory.push(filterProduct)
               }
             }
-            console.log(this.productsByCategory)
             this.loading = false;
           },
           err => {
@@ -88,7 +88,6 @@ export class ProductsMainComponent implements OnInit {
             productArr.push(product);
           }
           this.productsByCategory.push(productArr);
-          console.log(this.productsByCategory)
         }
         else {
           this.products = [];
@@ -114,10 +113,8 @@ export class ProductsMainComponent implements OnInit {
         let productCheck;
         if (this.products[0]) {
           productCheck = this.products
-          console.log('1', productCheck)
         } else {
           productCheck = this.productFilter
-          console.log('2')
         }
         // total sum and get more information about the products
         for (let i = 0; i < res[0].carts_info.length; i++) {
@@ -141,6 +138,7 @@ export class ProductsMainComponent implements OnInit {
     );
     this.httpCallService.newCart(user_idNum).subscribe(
       res => {
+        this.userInfo = res[0].user_idNum
         if (!res.carts_info) {
           this.httpCallService.cart = res[0]._id
           this.userCart = res[0].carts_info;
@@ -149,18 +147,14 @@ export class ProductsMainComponent implements OnInit {
           let productCheck;
           if (this.products[0]) {
             productCheck = this.products
-            console.log('1', productCheck)
           } else {
             productCheck = this.productFilter
-            console.log('2')
           }
           // total sum and get more information about the products
-          console.log(this.userCart)
           for (let i = 0; i < res[0].carts_info.length; i++) {
             this.totlalSumFromOldOrder += this.userCart[i].sum;
             let product1 = productCheck.filter(product => product._id == this.userCart[i].prdouct_id);
             let orderProduct = product1[0];
-            console.log(this.userCart)
             if (!this.productsFromLastOrder.includes(orderProduct)) {
               this.productsFromLastOrder.push(orderProduct)
             }
@@ -196,13 +190,12 @@ export class ProductsMainComponent implements OnInit {
     let productCheck;
     if (this.products[0]) {
       productCheck = this.products
-      console.log('1')
     } else {
       productCheck = this.productFilter
-      console.log('2')
     }
     this.httpCallService.getCartById(resultId).subscribe(
       result => {
+
         this.productsFromLastOrder = [];
         this.userCart = result[0].carts_info;
         for (let i = 0; i < result[0].carts_info.length; i++) {
@@ -222,14 +215,12 @@ export class ProductsMainComponent implements OnInit {
 
   // dialog logic add item to cart
   openDialog(productInfo): void {
-    console.log(productInfo)
     this.errorMsg = false;
     this.addThisToCart = { prdouct_name: productInfo.prdouct_name, price: productInfo.price, prdouct_id: productInfo._id };
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '250px',
       data: { prdouct_name: productInfo.prdouct_name, quantity: this.amount, cart: this.httpCallService.cart }
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'dontAdd') {
         return this.errorMsg = '';
@@ -276,7 +267,6 @@ export class ProductsMainComponent implements OnInit {
   public gotoOrder() {
     this.openOrder = false;
   };
-
 
 }
 

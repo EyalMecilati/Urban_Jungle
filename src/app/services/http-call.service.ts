@@ -5,7 +5,6 @@ import { Product } from '../interfaces/products'
 import { Category } from '../interfaces/Category';
 import { User } from '../interfaces/user';
 import { Order } from '../interfaces/Order';
-import { Cart } from '../interfaces/Cart';
 
 @Injectable({
   providedIn: 'root'
@@ -112,6 +111,11 @@ export class HttpCallService {
         "authorization": `Bearer ${token}`
       }
     })
+  }
+
+  // check order date for more then 2 orders
+  public checkDate(date):Observable<Order[]>{
+    return this.http.post<Order[]>('http://localhost:1000/api/order/date',date)
   }
 
 }

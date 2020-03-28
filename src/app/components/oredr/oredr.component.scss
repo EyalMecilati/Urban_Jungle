@@ -64,3 +64,22 @@ footer{
     }
 }
 
+.arrow{
+    font-size: 60px;
+    cursor: pointer;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: white !important;
+   }
+   
+   ::ng-deep .mat-form-field-label {
+    /*change color of label*/
+    color: white !important;
+   }
+   
+   
+   mat-datepicker-toggle {
+    color: white !important;
+   }

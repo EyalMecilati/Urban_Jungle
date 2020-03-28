@@ -179,6 +179,12 @@ footer{
 }
 
 .arrow{
-    // color: red;
     font-size: 60px;
+    cursor: pointer;
+}
+
+footer{
+    button{
+        margin-right: 10px;
+    }
 }

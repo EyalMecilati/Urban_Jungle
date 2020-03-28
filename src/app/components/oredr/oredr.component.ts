@@ -3,6 +3,7 @@ import { HttpCallService } from 'src/app/services/http-call.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/interfaces/products';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-oredr',
@@ -17,20 +18,23 @@ export class OredrComponent implements OnInit {
   productsFromLastOrder: any;
   @Input()
   totlalSumFromOldOrder: number;
+  @Input()
+  userInfo: User;
 
   public orderForm: FormGroup;
   public minDate: Date = new Date();
-  public order;
   public opened: boolean = true;
-  public sum: number = 0;
   public products: Product[];
   public cities: any = ['Tel Aviv', 'Jerusalem', 'Haifa', 'Beersheba', 'Herzliya', 'Hod HaSharon', 'Holon', 'Raanana', 'Rehovot', 'Tiberias'];
-
+  public uInfo: User;
+  public toManyDelivery: any[] = [];
+  public invalidDates = {}
 
   constructor(public httpCallService: HttpCallService, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    // this.getUserOrder();
+    this.filterDate();
+    this.uInfo = this.userInfo
     this.orderForm = this.formBuilder.group({
       city: ['', [Validators.required]],
       street: ['', [Validators.required]],
@@ -39,17 +43,20 @@ export class OredrComponent implements OnInit {
     })
   }
 
+
+
   public toggleCart() {
     this.opened = !this.opened
   }
 
-  public sentOrder() {
-    console.log(this.orderForm.value)
+  myFilter = (d): boolean => {
+    return !this.invalidDates[d._d];
   }
+
 
   public sendNewOrder() {
     let token = localStorage.getItem('token')
-    this.httpCallService.sendOrder(token, this.orderForm.value,this.totlalSumFromOldOrder).subscribe(res => {
+    this.httpCallService.sendOrder(token, this.orderForm.value, this.totlalSumFromOldOrder).subscribe(res => {
       console.log(res)
       let order_id;
       if (res[1]) {
@@ -62,5 +69,48 @@ export class OredrComponent implements OnInit {
       console.log(err)
     })
   };
+
+  public setUserInfo() {
+    this.orderForm.patchValue({
+      city: this.uInfo.city,
+      street: this.uInfo.street
+    })
+  }
+
+  public filterDate() {
+    this.toManyDelivery = [];
+    this.httpCallService.getOrders().subscribe(
+      res => {
+        for (let order of res) {
+          let dateCheck = order.date_for_delivery;
+          let datecjeckSetting = new Date(dateCheck);
+          if (!this.toManyDelivery.includes(datecjeckSetting)) {
+            let count = this.countInArray(res, datecjeckSetting);
+            this.toManyDelivery.push(datecjeckSetting)
+            if (count >= 3) {
+              this.invalidDates = {
+                ...this.invalidDates,
+                [`${datecjeckSetting}`]: true
+              }
+            }
+          }
+        }
+      }
+    )
+  }
+
+  public countInArray(orders, date) {
+    let count = 0;
+    for (let order of orders) {
+      let dateCheck2 = order.date_for_delivery;
+      let datecjeckSetting = new Date(dateCheck2).getDay();
+      let datecjeckSetting2 = new Date(date).getDay();
+      if (datecjeckSetting == datecjeckSetting2) {
+        console.log(datecjeckSetting, datecjeckSetting2)
+        count++;
+      }
+    }
+    return count;
+  }
 
 }

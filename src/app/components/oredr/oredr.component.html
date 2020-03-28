@@ -2,9 +2,6 @@
     <!-- side view  -->
     <mat-drawer class="sideOrder" mode="side" [opened]='opened'>
         <header>
-            <span (click)='toggleCart()' class="material-icons">
-                reorder
-            </span>
             <h2>Your Order</h2>
         </header>
         <mat-card class="cartProduct" *ngFor="let product of userCart; let i = index">
@@ -25,26 +22,31 @@
     </mat-drawer>
     <!-- main view -->
     <mat-drawer-content class="orderFormContainer">
-        <span (click)='toggleCart()' class="material-icons toggleCart">
-            reorder
+        <span (click)='toggleCart()' class="material-icons arrow" *ngIf="!opened">
+            arrow_right_alt
+        </span>
+        <span (click)='toggleCart()' class="material-icons arrow" *ngIf="opened">
+            arrow_left_alt
         </span>
         <form class="form" [formGroup]='orderForm' (ngSubmit)='sendNewOrder()'>
             <div class="example-container">
                 <mat-form-field appearance="fill">
                     <mat-label>Select City</mat-label>
                     <mat-select formControlName='city'>
-                        <mat-option *ngFor="let cityname of cities" [value]="cityname">{{cityname}}</mat-option>
+                        <mat-option (dblclick)='setUserInfo()' *ngFor="let cityname of cities" [value]="cityname">
+                            {{cityname}}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
                     <mat-label>Street</mat-label>
-                    <input matInput formControlName='street'>
+                    <input (dblclick)='setUserInfo()' matInput formControlName='street'>
                 </mat-form-field>
             </div>
             <mat-form-field>
                 <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker" [min]='minDate' formControlName='shippingDate'>
+                <input matInput [matDatepickerFilter]='myFilter' [matDatepicker]="picker"
+                    [min]='minDate' formControlName='shippingDate'>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
