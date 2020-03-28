@@ -5,6 +5,8 @@
     background-color: #84a9ac;
 }
 
+
+
 .side{
     border: 3px solid white;
     background-color: #899FB4; 
@@ -12,9 +14,13 @@
 } 
 
 @media only screen and (max-width: 600px) {
+    .container{
+        background-image: none;
+    }
     .wrapper{
     flex-direction: column !important;
     }
+
 
     .Productbox{
         width: 300px;
@@ -182,6 +188,8 @@ footer{
     font-size: 60px;
     cursor: pointer;
 }
+
+
 
 footer{
     button{

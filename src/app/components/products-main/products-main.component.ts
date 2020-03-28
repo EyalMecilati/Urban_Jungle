@@ -22,7 +22,6 @@ export class ProductsMainComponent implements OnInit {
 
   public products: Product[];
   public categorys: Category[];
-  public searchTerm: string;
   public userCart: Cart;
   public routeId: any;
   public totlalSumFromOldOrder: number = 0;
@@ -34,9 +33,9 @@ export class ProductsMainComponent implements OnInit {
   public errorMsg: any = false
   public loading: boolean = false;
   public productsByCategory = [];
-  public openOrder: boolean = true;
+  // public openOrder: boolean = true;
   public productFilter: any = false;
-  public userInfo:User
+  public userInfo: User
 
   constructor(public httpCallService: HttpCallService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, private router: Router) { }
 
@@ -48,7 +47,6 @@ export class ProductsMainComponent implements OnInit {
   }
 
   public getProducts() {
-    let productCheck;
     this.productsByCategory = [];
     this.loading = true;
     this.httpCallService.getAllProducts().subscribe(
@@ -90,7 +88,7 @@ export class ProductsMainComponent implements OnInit {
           this.productsByCategory.push(productArr);
         }
         else {
-          this.products = [];
+          this.products = null;
         }
       },
       err => {
@@ -265,7 +263,7 @@ export class ProductsMainComponent implements OnInit {
   }
 
   public gotoOrder() {
-    this.openOrder = false;
+    this.httpCallService.openOrder = !this.httpCallService.openOrder;
   };
 
 }

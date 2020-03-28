@@ -1,11 +1,11 @@
-<mat-drawer-container class="container" *ngIf="openOrder">
+<mat-drawer-container class="container" *ngIf="httpCallService.openOrder">
     <mat-spinner color='Accent' class="spinner" *ngIf="loading"></mat-spinner>
     <!-- side cart -->
     <mat-drawer class="side" mode="side" [opened]='opened'>
+        <span (click)='toggleCart()' class="material-icons arrow" *ngIf="opened">
+            arrow_right_alt
+        </span>     
         <header>
-            <span (click)='toggleCart()' class="material-icons arrow">
-                arrow_right_alt
-            </span>
             <h2>Your Cart</h2>
         </header>
         <mat-card class="cartProduct" *ngFor="let product of userCart; let i = index">
@@ -39,12 +39,11 @@
             <span (click)='toggleCart()' class="material-icons arrow" *ngIf="opened">
                 arrow_left_alt
             </span>
-            <input placeholder="          search product" type="text" [(ngModel)]="searchTerm">
             <button mat-stroked-button class="productsBtn" (click)="getProducts()">Products</button>
             <button class="serachByCategoryBtn" *ngFor="let category of categorys" mat-stroked-button
                 (click)="getProductByCategory(category._id)">{{category.category_name}} |</button>
         </header>
-        <h2 class="empty" *ngIf="!productFilter && !products[0]">Empty for the moment</h2>
+        <h2 class="empty" *ngIf="!productFilter && !products">Empty for the moment</h2>
         <div class="products" *ngIf="!productFilter">
             <div class="categorySort" *ngFor="let category of productsByCategory; let i = index">
                 <div class="cardContainer">
@@ -99,5 +98,5 @@
     </mat-drawer-content>
 
 </mat-drawer-container>
-<app-oredr *ngIf="!openOrder" [userCart]='userCart' [productsFromLastOrder]='productsFromLastOrder'
+<app-oredr *ngIf="!httpCallService.openOrder" [userCart]='userCart' [productsFromLastOrder]='productsFromLastOrder'
     [totlalSumFromOldOrder]='totlalSumFromOldOrder' [userInfo]='userInfo'></app-oredr>

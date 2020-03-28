@@ -17,7 +17,7 @@ export class HttpCallService {
   public storeInfoTotalSum: any;
   public openCartFrom: Date;
   public cart: any;
-
+  public openOrder:boolean = true; 
   //all products                                          ------products------
   public getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>('http://localhost:1000/api/products');

@@ -1,12 +1,13 @@
-.container{
+.orderContainer{
     width: 100%;
     height: 100%;
-    background-color: #6F8634;
+    background-color: #84a9ac;
 }
 
 .sideOrder{
-    background-color: #6D8F21;
+    background-color: #899FB4; 
 }
+
 
 header{
     margin: 20px;
@@ -33,10 +34,13 @@ header{
     top: 30%; 
 }
 
+.mat-select-panel{
+    background-color: #899FB4;
+}
+
 .submit{
     display: block;
     margin-left: 36%;
-    color: #de7119 !important;
     border: solid 1px white;
     font-weight: bold;
 }
@@ -52,7 +56,7 @@ footer{
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) { 
     .form{
         width: 215px;
         position: relative;
@@ -62,6 +66,12 @@ footer{
     .submit{
         margin-left: 23%;
     }
+
+    .back{
+        left: 66% !important; 
+    }
+
+
 }
 
 .arrow{
@@ -69,17 +79,21 @@ footer{
     cursor: pointer;
 }
 
-::ng-deep .mat-focused .mat-form-field-label {
-    /*change color of label*/
-    color: white !important;
-   }
-   
-   ::ng-deep .mat-form-field-label {
-    /*change color of label*/
-    color: white !important;
-   }
-   
-   
-   mat-datepicker-toggle {
-    color: white !important;
-   }
+.highlight-dates{
+    background: #84a9ac;
+    border-radius: 100%;
+}
+
+.mat-datepicker-content {
+    background-color: #899FB4; 
+}
+
+.back{
+    position: absolute;
+    left: 79%;
+    top: 2%;
+}
+
+.searchItemInOrder{
+ margin-left: 44%;
+}

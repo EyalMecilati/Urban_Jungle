@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { HttpCallService } from 'src/app/services/http-call.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/interfaces/products';
@@ -8,7 +8,8 @@ import { User } from 'src/app/interfaces/user';
 @Component({
   selector: 'app-oredr',
   templateUrl: './oredr.component.html',
-  styleUrls: ['./oredr.component.scss']
+  styleUrls: ['./oredr.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class OredrComponent implements OnInit {
 
@@ -28,13 +29,15 @@ export class OredrComponent implements OnInit {
   public cities: any = ['Tel Aviv', 'Jerusalem', 'Haifa', 'Beersheba', 'Herzliya', 'Hod HaSharon', 'Holon', 'Raanana', 'Rehovot', 'Tiberias'];
   public uInfo: User;
   public toManyDelivery: any[] = [];
-  public invalidDates = {}
+  public invalidDates = {};
+  public searchTerm: string;
 
   constructor(public httpCallService: HttpCallService, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.filterDate();
     this.uInfo = this.userInfo
+    console.log(this.uInfo)
     this.orderForm = this.formBuilder.group({
       city: ['', [Validators.required]],
       street: ['', [Validators.required]],
@@ -49,9 +52,15 @@ export class OredrComponent implements OnInit {
     this.opened = !this.opened
   }
 
-  myFilter = (d): boolean => {
+  public myFilter = (d): boolean => {
+
     return !this.invalidDates[d._d];
   }
+
+  public dateClass = (d) => {
+    return this.invalidDates[d._d] ? 'highlight-dates' : undefined;
+  }
+
 
 
   public sendNewOrder() {
@@ -106,11 +115,14 @@ export class OredrComponent implements OnInit {
       let datecjeckSetting = new Date(dateCheck2).getDay();
       let datecjeckSetting2 = new Date(date).getDay();
       if (datecjeckSetting == datecjeckSetting2) {
-        console.log(datecjeckSetting, datecjeckSetting2)
         count++;
       }
     }
     return count;
   }
+
+  public gotoOrder() {
+    this.httpCallService.openOrder = !this.httpCallService.openOrder;
+  };
 
 }
