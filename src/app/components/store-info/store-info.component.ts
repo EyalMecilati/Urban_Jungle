@@ -14,10 +14,13 @@ export class StoreInfoComponent implements OnInit {
   public products: Product[];
   public ordersNum: number;
   public productsNum: number;
+  public lastOrderDate: Date = null;
+  public lastOrderSum: number = null;
 
   constructor(public httpCallService: HttpCallService) { }
 
   ngOnInit(): void {
+    this.getUserLastOrder();
     this.getAllOrders();
     this.getProducts();
   }
@@ -46,4 +49,29 @@ export class StoreInfoComponent implements OnInit {
       err => console.log(err)
     )
   }
+
+  public getUserLastOrder() {
+    const token = localStorage.getItem('token');
+    this.httpCallService.getLastOrderOfUser(token).subscribe(
+      res => {
+        if (res[0]) {
+          console.log(res[0])
+          this.lastOrderDate = res[0].date_of_order;
+          this.lastOrderSum = res[0].total_sum
+          console.log(this.httpCallService.storeInfoTotalSum,'1')
+        } else {
+          console.log(this.httpCallService.storeInfoTotalSum,'2')
+          this.lastOrderDate = null;
+          this.lastOrderSum = null;
+        }
+      }
+    )
+  }
+
+  ngOnDestroy(): void {
+    this.lastOrderDate = null;
+    this.lastOrderSum = null;
+  }
+
+
 }

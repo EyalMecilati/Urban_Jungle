@@ -74,6 +74,15 @@ export class HttpCallService {
     return this.http.get<any>('http://localhost:1000/api/order/' + id.id);
   }
 
+  public getLastOrderOfUser(token):Observable<any>{
+    return this.http.get<any>('http://localhost:1000/api/order/latest', {
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`
+      }
+    })
+  }
+
 
   // add product to cart 
   public addProductToCart(product, token): Observable<any> {
