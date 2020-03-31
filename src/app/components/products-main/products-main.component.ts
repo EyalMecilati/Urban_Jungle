@@ -33,9 +33,11 @@ export class ProductsMainComponent implements OnInit {
   public errorMsg: any = false
   public loading: boolean = false;
   public productsByCategory = [];
+  public productSearchName: string;
   // public openOrder: boolean = true;
   public productFilter: any = false;
   public userInfo: User
+  public errorMsgForSearch: string = null
 
   constructor(public httpCallService: HttpCallService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, private router: Router) { }
 
@@ -73,6 +75,26 @@ export class ProductsMainComponent implements OnInit {
       }
     )
   }
+
+  // get product from user input search
+  public getProductByName() {
+    console.log(this.productSearchName)
+    this.httpCallService.getSpecificProduct(this.productSearchName).subscribe(
+      res => {
+        if (res[0]) {
+          this.productsByCategory = [res];
+          this.errorMsgForSearch = null
+        } else {
+          this.errorMsgForSearch = "couldn't find product"
+        }
+        console.log(this.errorMsgForSearch)
+      }, err => {
+        this.errorMsgForSearch = "couldn't find product"
+      }
+    )
+  }
+
+
   // get products by category
   public getProductByCategory(id) {
     this.productsByCategory = [];

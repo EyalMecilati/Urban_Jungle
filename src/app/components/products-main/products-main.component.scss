@@ -1,105 +1,102 @@
-.container{
-    background-image: url('https://www.meister.com/_Resources/Persistent/a/d/b/5/adb5f47a586a1a2aa054984687e9c2b869b811b6/8748_Lindura_HD400_naturgeoelt_Ambiente_Detail_01-web-1432x806.jpg');
+.container {
+    background-image: url("https://www.meister.com/_Resources/Persistent/a/d/b/5/adb5f47a586a1a2aa054984687e9c2b869b811b6/8748_Lindura_HD400_naturgeoelt_Ambiente_Detail_01-web-1432x806.jpg");
     width: 100%;
     height: 100vh;
     background-color: #84a9ac;
 }
 
-
-
-.side{
+.side {
     border: 3px solid white;
-    background-color: #899FB4; 
+    background-color: #899fb4;
     width: 30vw;
-} 
+}
 
 @media only screen and (max-width: 600px) {
-    .container{
+    .container {
         background-image: none;
     }
-    .wrapper{
-    flex-direction: column !important;
+    .wrapper {
+        flex-direction: column !important;
     }
 
-
-    .Productbox{
+    .Productbox {
         width: 300px;
     }
 
-    .side{
+    .side {
         width: 95vw;
     }
-    .products{
+    .products {
         text-align: center;
     }
-    .addItem{
-    display: block;
-    margin-left: 25% !important;
+    .addItem {
+        display: block;
+        margin-left: 25% !important;
     }
-    .empty{
+    .empty {
         left: 12% !important;
         padding: 5px !important;
         font-size: smaller;
     }
-    .mainHeafer{
+    .mainHeafer {
         margin-bottom: 140px !important;
     }
-  }
+}
 
-.headerDetails{
+.headerDetails {
     margin-left: 25%;
     padding-bottom: 3px;
 }
 
-.details{
-    label{
+.details {
+    label {
         padding-right: 60px;
     }
-    span{
+    span {
         position: relative;
         top: 4px;
     }
 }
 
-.cartProductTitle{
+.cartProductTitle {
     line-height: 2;
     font-size: 16px;
 }
 
-header{
+header {
     width: 100%;
     height: 10%;
     text-align: center;
-    h2{
+    h2 {
         position: relative;
         top: 45%;
         left: 0%;
     }
-    .material-icons{
+    .material-icons {
         position: absolute;
         left: 15px;
     }
 }
 
-.mat-card{
+.mat-card {
     font-size: larger;
     font-weight: bold;
 }
 
-mat-card-content{
-    label{
+mat-card-content {
+    label {
         margin-left: 15px;
     }
-    .delete{  
+    .delete {
         cursor: pointer;
     }
 }
 
-.mat-card-title{
+.mat-card-title {
     font-weight: bold;
 }
 
-.productImg{
+.productImg {
     padding-left: 1rem;
     height: 6rem;
 }
@@ -107,60 +104,63 @@ mat-card-content{
 .products{
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     margin: 10px;
-    .Productbox{
+    .Productbox {
         margin: 10px;
         border: 1px white solid;
-        .productHeader{
+        .productHeader {
             height: fit-content;
             margin: 0px;
         }
-        p{
+        p {
             margin: 10px;
         }
     }
 }
 
-.wrapper{
+.wrapper {
     display: flex !important;
     flex-direction: row;
     max-width: 10rem;
 }
 
-.mainView{
+.mainView {
+    background-color: black;
+    opacity: 70%;
     border: 3px solid white;
     display: flex;
     flex-wrap: wrap;
+    * {
+        opacity: 100%;
+    }
 }
 
-footer{
+footer {
     text-align: center;
     margin: 30px;
 }
 
-.price{
+.price {
     position: absolute;
     z-index: 2;
     right: 15px;
     transform: rotate(20deg);
-
 }
 
-.addItem{
+.addItem {
     margin-top: 10px;
     color: black;
     background-color: white;
-    opacity: 70%
+    opacity: 70%;
 }
 
-.categoryName{
+.categoryName {
     padding: 4px;
     color: blanchedalmond;
     width: fit-content;
 }
 
-.productsBtn{
+.productsBtn {
     display: block;
     position: relative;
     left: 40%;
@@ -170,11 +170,11 @@ footer{
     font-size: larger;
 }
 
-.mainHeafer{
+.mainHeafer {
     margin-bottom: 70px;
 }
 
-.empty{
+.empty {
     font-size: x-large;
     color: red;
     position: absolute;
@@ -184,15 +184,32 @@ footer{
     padding: 30px;
 }
 
-.arrow{
+.arrow {
     font-size: 60px;
     cursor: pointer;
 }
 
+.searchProduct {
+    width: 60%;
+}
 
+.errorForSearch {
+    margin-top: 5px;
+}
 
-footer{
-    button{
+.saerchBtn {
+    height: 51px;
+    background-color: blanchedalmond;
+    color: black;
+}
+
+.searchInput {
+    width: 100%;
+    text-align: center !important;
+}
+
+footer {
+    button {
         margin-right: 10px;
     }
 }

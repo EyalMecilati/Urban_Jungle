@@ -25,8 +25,6 @@ export class StoreInfoComponent implements OnInit {
     this.getProducts();
   }
 
-  // this.productsNum = this.products.length;
-  // this.ordersNum = this.orders.length;
   // get orders
   public getAllOrders() {
     this.httpCallService.getOrders().subscribe(
@@ -58,12 +56,13 @@ export class StoreInfoComponent implements OnInit {
           console.log(res[0])
           this.lastOrderDate = res[0].date_of_order;
           this.lastOrderSum = res[0].total_sum
-          console.log(this.httpCallService.storeInfoTotalSum,'1')
         } else {
-          console.log(this.httpCallService.storeInfoTotalSum,'2')
           this.lastOrderDate = null;
           this.lastOrderSum = null;
         }
+      },err=>{
+        this.lastOrderDate = null;
+        this.lastOrderSum = null;
       }
     )
   }

@@ -1,99 +1,100 @@
-.orderContainer{
+.orderContainer {
     width: 100%;
     height: 100%;
     background-color: #84a9ac;
 }
 
-.sideOrder{
-    background-color: #899FB4; 
+.sideOrder {
+    background-color: #899fb4;
 }
 
-
-header{
+header {
     margin: 20px;
 }
 
-.cartProduct{
+.cartProduct {
     margin: 20px;
 }
 
-.details{
-    label{
+.details {
+    label {
         padding-right: 30px;
     }
-    span{
+    span {
         position: relative;
         top: 4px;
     }
 }
 
-.form{
+.form {
     width: fit-content;
     position: relative;
     left: 30%;
-    top: 30%; 
+    top: 30%;
 }
 
-.mat-select-panel{
-    background-color: #899FB4;
+.mat-select-panel {
+    background-color: #899fb4;
 }
 
-.submit{
+.submit {
     display: block;
     margin-left: 36%;
     border: solid 1px white;
     font-weight: bold;
 }
 
-.toggleCart{
+.toggleCart {
     margin: 20px 0px 0px 10px;
 }
 
-footer{
+footer {
     margin: 20px;
-    h4{
+    h4 {
         margin-left: 50px;
     }
 }
 
-@media only screen and (max-width: 600px) { 
-    .form{
+@media only screen and (max-width: 600px) {
+    .form {
         width: 215px;
         position: relative;
         left: 21%;
         top: 10%;
     }
-    .submit{
+    .submit {
         margin-left: 23%;
     }
 
-    .back{
-        left: 66% !important; 
+    .back {
+        left: 66% !important;
     }
-
-
 }
 
-.arrow{
+.arrow {
     font-size: 60px;
     cursor: pointer;
 }
 
-.highlight-dates{
+.highlight-dates {
     background: #84a9ac;
     border-radius: 100%;
 }
 
 .mat-datepicker-content {
-    background-color: #899FB4; 
+    background-color: #899fb4;
 }
 
-.back{
+.back {
     position: absolute;
     left: 79%;
     top: 2%;
 }
 
-.searchItemInOrder{
- margin-left: 44%;
+.searchItemInOrder {
+    text-align: center !important;
+}
+
+.inputWrapper {
+    display: grid;
 }

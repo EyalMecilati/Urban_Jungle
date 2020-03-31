@@ -17,7 +17,7 @@ export class HttpCallService {
   public storeInfoTotalSum: any;
   public openCartFrom: Date;
   public cart: any;
-  public openOrder:boolean = true; 
+  public openOrder: boolean = true;
   //all products                                          ------products------
   public getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>('http://localhost:1000/api/products');
@@ -27,6 +27,14 @@ export class HttpCallService {
   public getProductByCategory(id): Observable<Product[]> {
     return this.http.get<Product[]>('http://localhost:1000/api/products/' + id);
   };
+
+  // get specific product
+  public getSpecificProduct(product): Observable<any> {
+    let product_name = {
+      product_name: product
+    }
+    return this.http.post<any>('http://localhost:1000/api/products', product_name)
+  }
 
   // get all categorys
   public getAllCategory(): Observable<Category[]> {
@@ -74,7 +82,7 @@ export class HttpCallService {
     return this.http.get<any>('http://localhost:1000/api/order/' + id.id);
   }
 
-  public getLastOrderOfUser(token):Observable<any>{
+  public getLastOrderOfUser(token): Observable<any> {
     return this.http.get<any>('http://localhost:1000/api/order/latest', {
       headers: {
         "Content-Type": "application/json",
@@ -111,10 +119,10 @@ export class HttpCallService {
   }
 
   // make oreder
-  public sendOrder(token,order,sum): Observable<any> {
-    const orderObj =  { cart_id: this.cart,...order,total_sum:sum}
+  public sendOrder(token, order, sum): Observable<any> {
+    const orderObj = { cart_id: this.cart, ...order, total_sum: sum }
     console.log(orderObj)
-    return this.http.post<any>('http://localhost:1000/api/order',orderObj, {
+    return this.http.post<any>('http://localhost:1000/api/order', orderObj, {
       headers: {
         "Content-Type": "application/json",
         "authorization": `Bearer ${token}`
@@ -123,8 +131,8 @@ export class HttpCallService {
   }
 
   // check order date for more then 2 orders
-  public checkDate(date):Observable<Order[]>{
-    return this.http.post<Order[]>('http://localhost:1000/api/order/date',date)
+  public checkDate(date): Observable<Order[]> {
+    return this.http.post<Order[]>('http://localhost:1000/api/order/date', date)
   }
 
 }

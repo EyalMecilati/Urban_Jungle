@@ -4,7 +4,7 @@
     <mat-drawer class="side" mode="side" [opened]='opened'>
         <span (click)='toggleCart()' class="material-icons arrow" *ngIf="opened">
             arrow_right_alt
-        </span>     
+        </span>
         <header>
             <h2>Your Cart</h2>
         </header>
@@ -32,6 +32,12 @@
     </mat-drawer>
     <!-- main view -->
     <mat-drawer-content class="mainView">
+        <mat-form-field class="searchProduct" appearance="fill">
+            <mat-label>search product by name</mat-label>
+            <input placeholder="          search product by name" type="text" [(ngModel)]="productSearchName" matInput>
+            <div class="errorForSearch" *ngIf="errorMsgForSearch">{{errorMsgForSearch}}</div>
+        </mat-form-field>
+        <button class="saerchBtn" mat-stroked-button (click)='getProductByName()'>search</button>
         <header class="mainHeafer">
             <span (click)='toggleCart()' class="material-icons arrow" *ngIf="!opened">
                 arrow_right_alt
@@ -53,10 +59,7 @@
                             <mat-card class="Productbox">
                                 <mat-card-header class="productHeader">
                                     <span class="price" [matBadge]="product.price" matBadgeColor="warn">price</span>
-                                    <!-- <mat-card-title class="cartProductTitle"
-                                        [innerHTML]='product.prdouct_name |colorYellow:searchTerm'></mat-card-title> -->
                                     <mat-card-title class="cartProductTitle">{{product.prdouct_name}}</mat-card-title>
-                                    <!-- <span class="price">Price: {{category[i].price}}</span> -->
                                 </mat-card-header>
                                 <mat-card-content>
                                     <img class="productImg" [src]="product.img_url" alt="User Avatar">
@@ -79,10 +82,7 @@
                             <mat-card class="Productbox">
                                 <mat-card-header class="productHeader">
                                     <span class="price" [matBadge]="product.price" matBadgeColor="warn">price</span>
-                                    <!-- <mat-card-title class="cartProductTitle"
-                                        [innerHTML]='product.prdouct_name |colorYellow:searchTerm'></mat-card-title> -->
                                     <mat-card-title class="cartProductTitle">{{product.prdouct_name}}</mat-card-title>
-                                    <!-- <span class="price">Price: {{category[i].price}}</span> -->
                                 </mat-card-header>
                                 <mat-card-content>
                                     <img class="productImg" [src]="product.img_url" alt="User Avatar">
