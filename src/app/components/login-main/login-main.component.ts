@@ -27,6 +27,7 @@ export class LoginMainComponent implements OnInit {
       idNum: ["", [Validators.required]],
       passwordRow: ['', Validators.required]
     })
+    this.httpCallService.getUserLastOrder();
   }
 
   public tokenCheck() {
@@ -77,6 +78,7 @@ export class LoginMainComponent implements OnInit {
         this.token = res;
         localStorage.setItem('token', res)
         this.tokenCheck();
+        this.httpCallService.getUserLastOrder();
       },
       err => {
         this.httpCallService.storeInfoTotalSum = null;

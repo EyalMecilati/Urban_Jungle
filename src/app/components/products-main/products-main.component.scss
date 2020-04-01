@@ -11,6 +11,10 @@
     width: 30vw;
 }
 
+.searchProduct {
+    width:  calc(100% - 75px) !important;
+}
+
 @media only screen and (max-width: 600px) {
     .container {
         background-image: none;

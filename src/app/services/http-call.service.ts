@@ -18,6 +18,10 @@ export class HttpCallService {
   public openCartFrom: Date;
   public cart: any;
   public openOrder: boolean = true;
+  public lastOrderSum: number = null;
+  public lastOrderDate: Date = null;
+
+
   //all products                                          ------products------
   public getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>('http://localhost:1000/api/products');
@@ -70,6 +74,12 @@ export class HttpCallService {
   // open new cart 
   public newCart(id): Observable<any> {
     return this.http.post<any>('http://localhost:1000/api/cart', id);
+  }
+
+  // delete cart 
+  public deleteCart(): Observable<any> {
+    console.log(this.cart)
+    return this.http.delete('http://localhost:1000/api/cart/' + this.cart)
   }
 
   // get all orders
@@ -133,6 +143,25 @@ export class HttpCallService {
   // check order date for more then 2 orders
   public checkDate(date): Observable<Order[]> {
     return this.http.post<Order[]>('http://localhost:1000/api/order/date', date)
+  }
+
+  public getUserLastOrder() {
+    const token = localStorage.getItem('token');
+    this.getLastOrderOfUser(token).subscribe(
+      res => {
+        if (res[0]) {
+          console.log(res[0])
+          this.lastOrderDate = res[0].date_of_order;
+          this.lastOrderSum = res[0].total_sum
+        } else {
+          this.lastOrderDate = null;
+          this.lastOrderSum = null;
+        }
+      }, err => {
+        this.lastOrderDate = null;
+        this.lastOrderSum = null;
+      }
+    )
   }
 
 }
