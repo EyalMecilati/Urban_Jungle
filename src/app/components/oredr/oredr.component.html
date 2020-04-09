@@ -26,7 +26,12 @@
     </mat-drawer>
     <!-- main view -->
     <mat-drawer-content class="orderFormContainer">
-        <button (click)="downloadReceiptToTxtFile()" mat-stroked-button >download</button> 
+        <div class="receipt" *ngIf="download">
+            <div class="downLoad">
+                <h3>To download the receipt press the button</h3>
+                <button (click)="downloadReceiptToTxtFile()" mat-stroked-button>download</button>
+            </div>
+        </div>
         <button (click)="gotoOrder()" mat-stroked-button class="back">back to order</button>
         <span (click)='toggleCart()' class="material-icons arrow" *ngIf="!opened">
             arrow_right_alt

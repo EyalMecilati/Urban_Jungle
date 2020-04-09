@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { HttpCallService } from 'src/app/services/http-call.service';
-import { Params, ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/interfaces/products';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/interfaces/user';
 import { saveAs } from 'file-saver';
+import { Router } from '@angular/router'
+
 
 
 @Component({
@@ -33,10 +34,12 @@ export class OredrComponent implements OnInit {
   public toManyDelivery: any[] = [];
   public invalidDates = {};
   public searchTerm: string;
+  public download: boolean = false;
 
-  constructor(public httpCallService: HttpCallService, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) { }
+  constructor(public httpCallService: HttpCallService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
+    this.download = false;
     this.filterDate();
     this.uInfo = this.userInfo
     this.orderForm = this.formBuilder.group({
@@ -73,6 +76,7 @@ export class OredrComponent implements OnInit {
       else {
         order_id = res[0]._id;
       }
+      this.download = true
     }, err => {
       console.log(err)
     })
@@ -125,10 +129,18 @@ export class OredrComponent implements OnInit {
   };
 
   public downloadReceiptToTxtFile() {
-    this.httpCallService.downloadReceipt(this.productsFromLastOrder).subscribe(
+    for (let i = 0; i < this.productsFromLastOrder.length; i++) {
+      this.productsFromLastOrder[i] = { ...this.productsFromLastOrder[i], quantity: this.userCart[i].quantity }
+    }
+    console.log(this.totlalSumFromOldOrder)
+    this.httpCallService.downloadReceipt(this.productsFromLastOrder, this.totlalSumFromOldOrder).subscribe(
       res => {
-        console.log(res)
         saveAs(res, "myfile.txt")
+        this.httpCallService.emptyCart().subscribe(
+          res=>{
+            this.router.navigate((['/welcome-to-the-jungle']))
+          }
+        )
       }, err => {
         console.log(err)
       }

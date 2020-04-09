@@ -46,6 +46,7 @@ export class ProductsMainComponent implements OnInit {
     this.addThisToCart = {}
     this.getProducts();
     this.openCart();
+    this.httpCallService.openOrder = true;
   }
 
   public getProducts() {

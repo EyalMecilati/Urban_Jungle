@@ -161,9 +161,12 @@ export class HttpCallService {
   }
 
   // download receipt
-  public downloadReceipt(receipt){
-    let products = {'products':receipt}
-    return this.http.post('http://localhost:1000/api/receipt/download/'+ this.cart,products,{responseType: 'blob'}) 
+  public downloadReceipt(receipt, total) {
+    let products = {
+      'products': receipt,
+      'total': total
+    }
+    return this.http.post('http://localhost:1000/api/receipt/download/' + this.cart, products, { responseType: 'blob' })
   }
 
 }

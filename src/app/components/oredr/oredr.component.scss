@@ -98,3 +98,22 @@ footer {
 .inputWrapper {
     display: grid;
 }
+
+.receipt {
+    position: absolute;
+    top: 10vh;
+    z-index: 7;
+    width: 79vw;
+    height: 90vh;
+    background-image: url("https://morethankyounotes.com/wp-content/uploads/2017/02/Customer-Thank-You-Note-1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    .downLoad {
+        color: black !important;
+        margin-top: 10%;
+        text-align: center;
+        button {
+            border: 1px solid black;
+        }
+    }
+}
