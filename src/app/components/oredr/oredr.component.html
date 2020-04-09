@@ -10,7 +10,7 @@
         <mat-card class="cartProduct" *ngFor="let product of userCart; let i = index">
             <mat-card-content>
                 <div class="headerDetails">
-                    <img mat-card-avatar [src]="productsFromLastOrder[i].img_url" alt="User Avatar">
+                    <img mat-card-avatar [src]="productsFromLastOrder[i].img_url">
                     <span class="cartProductTitle"
                         [innerHTML]='productsFromLastOrder[i].prdouct_name |colorYellow:searchTerm'></span>
                 </div>
@@ -26,6 +26,7 @@
     </mat-drawer>
     <!-- main view -->
     <mat-drawer-content class="orderFormContainer">
+        <button (click)="downloadReceiptToTxtFile()" mat-stroked-button >download</button> 
         <button (click)="gotoOrder()" mat-stroked-button class="back">back to order</button>
         <span (click)='toggleCart()' class="material-icons arrow" *ngIf="!opened">
             arrow_right_alt
@@ -36,7 +37,7 @@
         <div class="inputWrapper">
             <mat-form-field class="searchItemInOrder" appearance="fill" *ngIf="opened">
                 <mat-label>search an item for check</mat-label>
-                <input  placeholder="          search product" type="text" [(ngModel)]="searchTerm" matInput>
+                <input placeholder="          search product" type="text" [(ngModel)]="searchTerm" matInput>
             </mat-form-field>
             <form class="form" [formGroup]='orderForm' (ngSubmit)='sendNewOrder()'>
                 <div class="example-container">
@@ -47,7 +48,7 @@
                                 {{cityname}}</mat-option>
                         </mat-select>
                     </mat-form-field>
-    
+
                     <mat-form-field appearance="fill">
                         <mat-label>Street</mat-label>
                         <input (dblclick)='setUserInfo()' matInput formControlName='street'>
@@ -67,7 +68,7 @@
                 <button mat-button [disabled]="orderForm.invalid" class="submit">Sent Order</button>
             </form>
         </div>
-        
+
     </mat-drawer-content>
 
 </mat-drawer-container>

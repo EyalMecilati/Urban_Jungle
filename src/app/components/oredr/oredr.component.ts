@@ -4,6 +4,8 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/interfaces/products';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/interfaces/user';
+import { saveAs } from 'file-saver';
+
 
 @Component({
   selector: 'app-oredr',
@@ -37,16 +39,14 @@ export class OredrComponent implements OnInit {
   ngOnInit(): void {
     this.filterDate();
     this.uInfo = this.userInfo
-    console.log(this.uInfo)
     this.orderForm = this.formBuilder.group({
       city: ['', [Validators.required]],
       street: ['', [Validators.required]],
       shippingDate: ['', [Validators.required]],
       creditCard: ['', [Validators.required, Validators.pattern('^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$')]]
     })
+    console.log(this.productsFromLastOrder)
   }
-
-
 
   public toggleCart() {
     this.opened = !this.opened
@@ -66,7 +66,6 @@ export class OredrComponent implements OnInit {
   public sendNewOrder() {
     let token = localStorage.getItem('token')
     this.httpCallService.sendOrder(token, this.orderForm.value, this.totlalSumFromOldOrder).subscribe(res => {
-      console.log(res)
       let order_id;
       if (res[1]) {
         order_id = res[res.length - 1]._id;
@@ -124,5 +123,16 @@ export class OredrComponent implements OnInit {
   public gotoOrder() {
     this.httpCallService.openOrder = !this.httpCallService.openOrder;
   };
+
+  public downloadReceiptToTxtFile() {
+    this.httpCallService.downloadReceipt(this.productsFromLastOrder).subscribe(
+      res => {
+        console.log(res)
+        saveAs(res, "myfile.txt")
+      }, err => {
+        console.log(err)
+      }
+    )
+  }
 
 }

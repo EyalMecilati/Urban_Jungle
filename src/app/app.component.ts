@@ -11,13 +11,11 @@ export class AppComponent {
   constructor(private router: Router, private httpCallService: HttpCallService) { } 
 
   public logout() {
-    console.log(this.httpCallService.cart)
     if (this.httpCallService.cart !== undefined) {
       this.httpCallService.deleteCart().subscribe(
         res => {
-          console.log(res)
         }, err => {
-          console.log(err)
+          console.log(err) 
         }
       )
     }

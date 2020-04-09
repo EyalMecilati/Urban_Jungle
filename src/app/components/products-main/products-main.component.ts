@@ -78,7 +78,6 @@ export class ProductsMainComponent implements OnInit {
 
   // get product from user input search
   public getProductByName() {
-    console.log(this.productSearchName)
     this.httpCallService.getSpecificProduct(this.productSearchName).subscribe(
       res => {
         if (res[0]) {
@@ -87,7 +86,6 @@ export class ProductsMainComponent implements OnInit {
         } else {
           this.errorMsgForSearch = "couldn't find product"
         }
-        console.log(this.errorMsgForSearch)
       }, err => {
         this.errorMsgForSearch = "couldn't find product"
       }

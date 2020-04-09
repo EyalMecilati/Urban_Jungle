@@ -3,9 +3,12 @@
     <mat-card-subtitle>Be our order number <em style="text-decoration: underline;">{{ordersNum + 1}}</em>
     </mat-card-subtitle>
     <mat-card-subtitle>we have to offer you at least <em>{{productsNum}}</em> items for sale</mat-card-subtitle>
-    <mat-card-content >
-        <p *ngIf="httpCallService.storeInfoTotalSum">Hi you have an open cart from {{httpCallService.openCartFrom | date}} with a total sum of
+    <mat-card-content>
+        <p *ngIf="httpCallService.storeInfoTotalSum">Hi you have an open cart from
+            {{httpCallService.openCartFrom | date}} with a total sum of
             {{httpCallService.storeInfoTotalSum |  currency:'ILS'}}</p>
-            <p *ngIf="!httpCallService.storeInfoTotalSum && httpCallService.lastOrderDate">Welcome back your last order was on {{httpCallService.lastOrderDate | date}}  and had a total sum of: {{httpCallService.lastOrderSum}}</p>   
-        </mat-card-content>
+        <p *ngIf="!httpCallService.storeInfoTotalSum && httpCallService.lastOrderDate">Welcome back your last order was
+            on {{httpCallService.lastOrderDate | date}} and had a total sum of:
+            {{httpCallService.lastOrderSum |  currency:'ILS'}}</p>
+    </mat-card-content>
 </mat-card>

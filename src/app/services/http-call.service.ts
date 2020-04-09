@@ -78,7 +78,6 @@ export class HttpCallService {
 
   // delete cart 
   public deleteCart(): Observable<any> {
-    console.log(this.cart)
     return this.http.delete('http://localhost:1000/api/cart/' + this.cart)
   }
 
@@ -88,7 +87,6 @@ export class HttpCallService {
   }
   // get specific order
   public getOneOrder(id): Observable<any> {
-    console.log(id)
     return this.http.get<any>('http://localhost:1000/api/order/' + id.id);
   }
 
@@ -131,7 +129,6 @@ export class HttpCallService {
   // make oreder
   public sendOrder(token, order, sum): Observable<any> {
     const orderObj = { cart_id: this.cart, ...order, total_sum: sum }
-    console.log(orderObj)
     return this.http.post<any>('http://localhost:1000/api/order', orderObj, {
       headers: {
         "Content-Type": "application/json",
@@ -150,7 +147,6 @@ export class HttpCallService {
     this.getLastOrderOfUser(token).subscribe(
       res => {
         if (res[0]) {
-          console.log(res[0])
           this.lastOrderDate = res[0].date_of_order;
           this.lastOrderSum = res[0].total_sum
         } else {
@@ -162,6 +158,12 @@ export class HttpCallService {
         this.lastOrderSum = null;
       }
     )
+  }
+
+  // download receipt
+  public downloadReceipt(receipt){
+    let products = {'products':receipt}
+    return this.http.post('http://localhost:1000/api/receipt/download/'+ this.cart,products,{responseType: 'blob'}) 
   }
 
 }

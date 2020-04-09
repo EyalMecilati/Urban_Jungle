@@ -40,31 +40,11 @@ export class StoreInfoComponent implements OnInit {
     this.httpCallService.getAllProducts().subscribe(
       res => {
         this.products = res
-        // this.httpCallService.products = res;
         this.productsNum = res.length
       },
       err => console.log(err)
     )
   }
-
-  // public getUserLastOrder() {
-  //   const token = localStorage.getItem('token');
-  //   this.httpCallService.getLastOrderOfUser(token).subscribe(
-  //     res => {
-  //       if (res[0]) {
-  //         console.log(res[0])
-  //         this.lastOrderDate = res[0].date_of_order;
-  //         this.lastOrderSum = res[0].total_sum
-  //       } else {
-  //         this.lastOrderDate = null;
-  //         this.lastOrderSum = null;
-  //       }
-  //     },err=>{
-  //       this.lastOrderDate = null;
-  //       this.lastOrderSum = null;
-  //     }
-  //   )
-  // }
 
   ngOnDestroy(): void {
     this.lastOrderDate = null;
