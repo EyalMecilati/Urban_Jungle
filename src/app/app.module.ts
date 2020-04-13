@@ -20,6 +20,7 @@ import { ModalComponent } from './components/products-main/modal/modal.component
 import { OredrComponent } from './components/oredr/oredr.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
     ColorYellowPipe,
     StoreInfoComponent,
     ModalComponent,
-    OredrComponent
+    OredrComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

@@ -12,7 +12,8 @@ import { Order } from '../interfaces/Order';
 export class HttpCallService {
 
   constructor(private http: HttpClient) { }
-  // public products:Product[];
+
+  // public var
   public headerCheck: boolean = false;
   public storeInfoTotalSum: any;
   public openCartFrom: Date;
@@ -167,6 +168,16 @@ export class HttpCallService {
       'total': total
     }
     return this.http.post('http://localhost:1000/api/receipt/download/' + this.cart, products, { responseType: 'blob' })
+  }
+
+  // admin functions
+  public removeProduct(id, token):Observable<any>{
+    return this.http.delete<any>('http://localhost:1000/api/products/'+ id, {
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`
+      }
+    });
   }
 
 }

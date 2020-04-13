@@ -5,7 +5,7 @@ import { LoginMainComponent } from './components/login-main/login-main.component
 import { MainComponent } from './components/main/main.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RejisterComponent } from './components/rejister/rejister.component';
-import { OredrComponent } from './components/oredr/oredr.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 const routes: Routes = [
@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'products/:id', component: ProductsMainComponent },
   { path: 'login', component: LoginMainComponent },
   { path: 'rejister', component: RejisterComponent },
+  { path: 'admin', component: AdminComponent }, 
   { path: '', redirectTo: '/welcome-to-the-jungle', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

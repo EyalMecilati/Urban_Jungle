@@ -1,0 +1,27 @@
+<div class="container">
+    <mat-spinner color='Accent' class="spinner" *ngIf="loading"></mat-spinner>
+    <div class="products">
+        <div class="categorySort" *ngFor="let category of productsByCategory; let i = index">
+            <div class="cardContainer">
+                <h1 class="categoryName">{{category[0].category_id.category_name}}</h1>
+                <div class="wrapper">
+                    <div *ngFor="let product of category">
+                        <span (click)="deleteProduct(product._id)" class="material-icons remove">
+                            delete_forever
+                            </span>
+                        <mat-card class="Productbox">
+                            <mat-card-header class="productHeader">
+                                <!-- (click)="changePrice(product._id)"  -->
+                                <span class="price" [matBadge]="product.price" matBadgeColor="warn">price</span>
+                                <mat-card-title class="cartProductTitle">{{product.prdouct_name}}</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <img class="productImg" [src]="product.img_url" alt="User Avatar">
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

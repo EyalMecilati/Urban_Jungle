@@ -132,7 +132,6 @@ export class OredrComponent implements OnInit {
     for (let i = 0; i < this.productsFromLastOrder.length; i++) {
       this.productsFromLastOrder[i] = { ...this.productsFromLastOrder[i], quantity: this.userCart[i].quantity }
     }
-    console.log(this.totlalSumFromOldOrder)
     this.httpCallService.downloadReceipt(this.productsFromLastOrder, this.totlalSumFromOldOrder).subscribe(
       res => {
         saveAs(res, "myfile.txt")

@@ -41,8 +41,8 @@
         </span>
         <div class="inputWrapper">
             <mat-form-field class="searchItemInOrder" appearance="fill" *ngIf="opened">
-                <mat-label>search an item for check</mat-label>
-                <input placeholder="          search product" type="text" [(ngModel)]="searchTerm" matInput>
+                <mat-label style="color: black ; font-size: 20px;">search an item for check</mat-label>
+                <input type="text" [(ngModel)]="searchTerm" matInput>
             </mat-form-field>
             <form class="form" [formGroup]='orderForm' (ngSubmit)='sendNewOrder()'>
                 <div class="example-container">

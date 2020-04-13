@@ -17,7 +17,7 @@ export class LoginMainComponent implements OnInit {
   public goToRejister: boolean = false;
   public header: string;
   public errors: string = '';
-  public loading: boolean = false; 
+  public loading: boolean = false;
 
   constructor(public httpCallService: HttpCallService, private fBuilder: FormBuilder, private router: Router) { }
 
@@ -56,9 +56,13 @@ export class LoginMainComponent implements OnInit {
           this.httpCallService.openCartFrom = res.cart.date
           this.httpCallService.storeInfoTotalSum = totalSum;
           // first order
-        } else if (res.errors = 'dont have a last order') {
+        } else if (res.errors == 'dont have a last order') {
           this.header = 'start your first order'
           this.httpCallService.storeInfoTotalSum = null;
+        }
+        // is admin
+        else if (res.errors == 'isAdmin') {
+          this.router.navigate(['/admin'])
         }
       },
       err => {
