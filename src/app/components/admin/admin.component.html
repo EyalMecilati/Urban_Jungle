@@ -1,27 +1,64 @@
 <div class="container">
-    <mat-spinner color='Accent' class="spinner" *ngIf="loading"></mat-spinner>
-    <div class="products">
-        <div class="categorySort" *ngFor="let category of productsByCategory; let i = index">
-            <div class="cardContainer">
-                <h1 class="categoryName">{{category[0].category_id.category_name}}</h1>
-                <div class="wrapper">
-                    <div *ngFor="let product of category">
-                        <span (click)="deleteProduct(product._id)" class="material-icons remove">
-                            delete_forever
-                            </span>
-                        <mat-card class="Productbox">
-                            <mat-card-header class="productHeader">
-                                <!-- (click)="changePrice(product._id)"  -->
-                                <span class="price" [matBadge]="product.price" matBadgeColor="warn">price</span>
-                                <mat-card-title class="cartProductTitle">{{product.prdouct_name}}</mat-card-title>
-                            </mat-card-header>
-                            <mat-card-content>
-                                <img class="productImg" [src]="product.img_url" alt="User Avatar">
-                            </mat-card-content>
-                        </mat-card>
+    <!-- <mat-spinner color='Accent' class="spinner"></mat-spinner> -->
+    <mat-drawer-container class="orderContainer">
+        <!-- side view  -->
+        <mat-drawer class="sideOrder" mode="side" [opened]='opened'>
+            <div class="newProducts">
+                <h2 class="newProductHeader">Add New Product</h2>
+                <form class="form" [formGroup]='newProductForm'>
+                    <div class="example-container">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Select category</mat-label>
+                            <mat-select formControlName='category'>
+                                <mat-option *ngFor="let category of categorys" [value]="category._id">
+                                    {{category.category_name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>name</mat-label>
+                            <input matInput formControlName='prdouct_name'>
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>price</mat-label>
+                        <input matInput type="number" formControlName='price'>
+                    </mat-form-field>
+                    <button mat-button [disabled]="newProductForm.invalid" class="submit">Add new product</button>
+                </form>
+            </div>
+        </mat-drawer>
+        <!-- main view -->
+        <mat-drawer-content class="mainView">
+            <div class="products">
+                <span (click)='toggleCart()' class="material-icons arrow">
+                    arrow_right_alt
+                </span>
+                <div class="categorySort" *ngFor="let category of productsByCategory; let i = index">
+                    <div class="cardContainer">
+                        <h1 class="categoryName">{{category[0].category_id.category_name}}</h1>
+                        <div class="wrapper">
+                            <div *ngFor="let product of category">
+                                <span (click)="deleteProduct(product._id)" class="material-icons remove">
+                                    delete_forever
+                                </span>
+                                <mat-card class="Productbox">
+                                    <mat-card-header class="productHeader">
+                                        <!-- (click)="changePrice(product._id)"  -->
+                                        <span class="price" [matBadge]="product.price" matBadgeColor="warn">price</span>
+                                        <mat-card-title class="cartProductTitle">{{product.prdouct_name}}
+                                        </mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <img class="productImg" [src]="product.img_url" alt="User Avatar">
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </mat-drawer-content>
+
+    </mat-drawer-container>
 </div>

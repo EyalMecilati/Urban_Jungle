@@ -12,7 +12,7 @@
 }
 
 .searchProduct {
-    width:  calc(100% - 75px) !important;
+    width: calc(100% - 75px) !important;
 }
 
 @media only screen and (max-width: 600px) {
@@ -105,7 +105,7 @@ mat-card-content {
     height: 6rem;
 }
 
-.products{
+.products {
     display: flex;
     flex-direction: column;
     margin: 10px;
@@ -210,6 +210,12 @@ footer {
 .searchInput {
     width: 100%;
     text-align: center !important;
+}
+
+.totalSum {
+    padding: 10px;
+    background-color: white;
+    color: green;
 }
 
 footer {

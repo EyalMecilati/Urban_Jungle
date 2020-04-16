@@ -6,9 +6,9 @@
     <mat-card-content>
         <p *ngIf="httpCallService.storeInfoTotalSum">Hi you have an open cart from
             {{httpCallService.openCartFrom | date}} with a total sum of
-            {{httpCallService.storeInfoTotalSum |  currency:'ILS'}}</p>
+            {{httpCallService.storeInfoTotalSum |  currency:'ILS':'symbol':'1.0'}}</p>
         <p *ngIf="!httpCallService.storeInfoTotalSum && httpCallService.lastOrderDate">Welcome back your last order was
             on {{httpCallService.lastOrderDate | date}} and had a total sum of:
-            {{httpCallService.lastOrderSum |  currency:'ILS'}}</p>
+            {{httpCallService.lastOrderSum |  currency:'ILS':'symbol':'1.0' }}</p> 
     </mat-card-content>
 </mat-card>

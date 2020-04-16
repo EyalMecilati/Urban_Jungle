@@ -1,3 +1,25 @@
+@media only screen and (max-width: 600px) {
+    .sideOrder {
+        width: 40% !important;
+    }
+}
+
+.sideOrder {
+    width: fit-content;
+    background-color: #899fb4;
+    border-right: 3px solid white;
+}
+
+.arrow{
+    font-size: 30px;
+}
+
+.mainView {
+    background-image: url("../../images/adminBg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .container {
     background-color: cadetblue;
 }
@@ -38,6 +60,19 @@
 
 .remove {
     position: relative;
+    z-index: 2;
     top: 4px;
     left: 2px;
+}
+
+.form {
+    margin-top: 50%;
+    * {
+        display: block;
+    }
+}
+
+.newProductHeader {
+    margin-top: 10%;
+    text-align: center;
 }

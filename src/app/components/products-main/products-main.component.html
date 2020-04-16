@@ -25,7 +25,7 @@
         </mat-card>
         <footer>
             <h3 *ngIf="errorMsg">{{errorMsg}}</h3>
-            <h4>total sum: {{totlalSumFromOldOrder}}</h4>
+            <h4 class="totalSum">total sum: {{totlalSumFromOldOrder}}</h4>
             <button mat-stroked-button (click)="removeItemFromCart()">Empty Cart</button>
             <button mat-stroked-button (click)="gotoOrder()">Order</button>
         </footer>

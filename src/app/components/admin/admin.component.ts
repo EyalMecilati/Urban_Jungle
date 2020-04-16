@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpCallService } from 'src/app/services/http-call.service';
 import { Category } from 'src/app/interfaces/Category';
 import { Product } from 'src/app/interfaces/products';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
@@ -14,12 +15,24 @@ export class AdminComponent implements OnInit {
   public products: Product[];
   public categorys: Category[];
   public loading: boolean = false;
+  public newProductForm: FormGroup;
+  public opened: boolean = true
 
-  constructor(private httpCallService: HttpCallService) { }
+  constructor(private httpCallService: HttpCallService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.getProducts();
+
+    this.newProductForm = this.formBuilder.group({
+      category: ['', [Validators.required]],
+      prdouct_name: ['', [Validators.required]],
+      price: ['', [Validators.required]]
+    })
   };
+
+  public toggleCart() {
+    this.opened = !this.opened
+  }
 
   public getProducts() {
     this.productsByCategory = [];
