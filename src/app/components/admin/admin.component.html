@@ -26,6 +26,10 @@
                     </mat-form-field>
                     <button mat-button [disabled]="newProductForm.invalid" class="submit">Add new product</button>
                 </form>
+                <form (ngSubmit)='uploadImage()'>
+                        <input  type="file" (change)='pickImage($event)' >
+                        <button>upload</button>
+                </form>
             </div>
         </mat-drawer>
         <!-- main view -->

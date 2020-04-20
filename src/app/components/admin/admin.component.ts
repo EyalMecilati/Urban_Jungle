@@ -17,6 +17,7 @@ export class AdminComponent implements OnInit {
   public loading: boolean = false;
   public newProductForm: FormGroup;
   public opened: boolean = true
+  public fileSelected: any;
 
   constructor(private httpCallService: HttpCallService, private formBuilder: FormBuilder) { }
 
@@ -26,8 +27,9 @@ export class AdminComponent implements OnInit {
     this.newProductForm = this.formBuilder.group({
       category: ['', [Validators.required]],
       prdouct_name: ['', [Validators.required]],
-      price: ['', [Validators.required]]
-    })
+      price: ['', [Validators.required]],
+    });
+
   };
 
   public toggleCart() {
@@ -75,6 +77,22 @@ export class AdminComponent implements OnInit {
       })
   }
 
+  public pickImage(e) {
+    this.fileSelected = e.target.files[0];
+  }
+
+  public uploadImage() {
+    const imageData = new FormData()
+    imageData.append('file', this.fileSelected);
+    const token = localStorage.getItem('token');
+    this.httpCallService.adminAddImage(imageData, token).subscribe(
+      res => {
+        
+      }, err => {
+        console.log(err)
+      }
+    )
+  }
   // public changePrice(id){
   //   let token = localStorage.getItem('token');
   //   this.httpCallService.changePriceOfProduct(id,token).subscribe(res=>{

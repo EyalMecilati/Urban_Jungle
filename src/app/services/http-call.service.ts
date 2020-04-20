@@ -180,4 +180,8 @@ export class HttpCallService {
     });
   }
 
+  public adminAddImage(uploadFile,token):Observable<any>{    
+    return this.http.post('http://localhost:1000/api/admin/new-product',uploadFile)
+  }
+
 }
