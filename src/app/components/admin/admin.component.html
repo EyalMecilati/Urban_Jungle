@@ -24,12 +24,12 @@
                         <mat-label>price</mat-label>
                         <input matInput type="number" formControlName='price'>
                     </mat-form-field>
-                    <button mat-button [disabled]="newProductForm.invalid" class="submit">Add new product</button>
                 </form>
-                <form (ngSubmit)='uploadImage()'>
-                        <input  type="file" (change)='pickImage($event)' >
-                        <button>upload</button>
+                <form class="imageForm" (ngSubmit)='uploadImage()'>
+                    <input class="uploadBtn" type="file" (change)='pickImage($event)'>
+                    <button mat-button [disabled]="newProductForm.invalid || !imageUploadedCheck" class="submit">Add new product</button>
                 </form>
+
             </div>
         </mat-drawer>
         <!-- main view -->

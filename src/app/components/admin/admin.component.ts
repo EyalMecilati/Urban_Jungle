@@ -18,6 +18,7 @@ export class AdminComponent implements OnInit {
   public newProductForm: FormGroup;
   public opened: boolean = true
   public fileSelected: any;
+  public imageUploadedCheck: boolean = false;
 
   constructor(private httpCallService: HttpCallService, private formBuilder: FormBuilder) { }
 
@@ -77,17 +78,22 @@ export class AdminComponent implements OnInit {
       })
   }
 
+  // public addNewProduct(){
+  //   this.httpCallService.
+  // }
+
   public pickImage(e) {
     this.fileSelected = e.target.files[0];
+    this.imageUploadedCheck = true;
   }
 
   public uploadImage() {
     const imageData = new FormData()
     imageData.append('file', this.fileSelected);
     const token = localStorage.getItem('token');
-    this.httpCallService.adminAddImage(imageData, token).subscribe(
+    this.httpCallService.adminAddImage(imageData, token, this.newProductForm).subscribe(
       res => {
-        
+        console.log(res)
       }, err => {
         console.log(err)
       }

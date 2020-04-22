@@ -10,7 +10,7 @@
     border-right: 3px solid white;
 }
 
-.arrow{
+.arrow {
     font-size: 30px;
 }
 
@@ -76,3 +76,18 @@
     margin-top: 10%;
     text-align: center;
 }
+
+.uploadBtn {
+    padding-top: 18px;
+    display: block;
+    padding-bottom: 10px;
+    border-bottom: 1px whitesmoke solid;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+// .imageForm {
+//     input[type="file" i] {
+//         color: red ;
+//     }
+// }

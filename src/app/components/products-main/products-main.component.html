@@ -62,7 +62,9 @@
                                     <mat-card-title class="cartProductTitle">{{product.prdouct_name}}</mat-card-title>
                                 </mat-card-header>
                                 <mat-card-content>
-                                    <img class="productImg" [src]="product.img_url" alt="User Avatar">
+                                    <img alt="product img" class="productImg"
+                                        [src]="product.img_url">
+                                    <!-- <img class="productImg" [src]="product.img_url" alt="product img"> -->
                                     <button class="addItem" mat-stroked-button (click)="openDialog(product)">Add item to
                                         Cart</button>
                                 </mat-card-content>
@@ -100,4 +102,3 @@
 </mat-drawer-container>
 <app-oredr *ngIf="!httpCallService.openOrder" [userCart]='userCart' [productsFromLastOrder]='productsFromLastOrder'
     [totlalSumFromOldOrder]='totlalSumFromOldOrder' [userInfo]='userInfo'></app-oredr>
-   

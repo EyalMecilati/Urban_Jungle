@@ -1,5 +1,4 @@
-
-.card{
+.card {
     font-weight: bold;
     margin: 30px;
     padding: 10px;
@@ -7,59 +6,61 @@
     opacity: 69%;
     background: white;
     color: #42240c;
-    font-family: 'Patrick Hand', cursive;
+    font-family: "Patrick Hand", cursive;
 
     // height: 300px;
 }
 
-.enter{
+.enter {
     opacity: 69%;
     background: white;
     color: #42240c;
 }
-.titleHeader{
-font-family: 'Permanent Marker', cursive !important;
+.titleHeader {
+    font-family: "Permanent Marker", cursive !important;
     color: #c81912;
     font-size: 22px;
+    cursor: pointer;
 }
 
-.header{
+.header {
     margin-bottom: 20px;
 }
 
-@media screen and (max-width:400px ) {
-    .card{
+@media screen and (max-width: 400px) {
+    .card {
         width: 80%;
     }
 }
 
-.chip{
+.chip {
     background-color: #424141 !important;
     color: #fff;
 }
 
-.btn{
-    background:none ;
+.btn {
+    background: none;
     border: none;
 }
 
-label,input{
+label,
+input {
     margin: 2px;
     padding: 5px;
 }
 
-.enter{
+.enter {
     color: #cbe2b0;
     width: fit-content;
     padding: 10px;
-    margin:20px 30px 20px 30px; 
+    margin: 20px 30px 20px 30px;
 }
 
-.error{
+.error {
     padding-top: 5px;
     font-size: 15px;
 }
 
-mat-card-title{
+mat-card-title {
     color: #c81912;
 }

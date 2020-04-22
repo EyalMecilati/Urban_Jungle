@@ -6,6 +6,7 @@ import { Category } from '../interfaces/Category';
 import { User } from '../interfaces/user';
 import { Order } from '../interfaces/Order';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -171,8 +172,8 @@ export class HttpCallService {
   }
 
   // admin functions
-  public removeProduct(id, token):Observable<any>{
-    return this.http.delete<any>('http://localhost:1000/api/products/'+ id, {
+  public removeProduct(id, token): Observable<any> {
+    return this.http.delete<any>('http://localhost:1000/api/products/' + id, {
       headers: {
         "Content-Type": "application/json",
         "authorization": `Bearer ${token}`
@@ -180,8 +181,12 @@ export class HttpCallService {
     });
   }
 
-  public adminAddImage(uploadFile,token):Observable<any>{    
-    return this.http.post('http://localhost:1000/api/admin/new-product',uploadFile)
+  public adminAddImage(uploadFile, token, form): Observable<any> {
+    const obj = {
+      form: form,
+      uploadFile: uploadFile
+    }
+    return this.http.post('http://localhost:1000/api/admin/new-product', obj)
   }
 
 }

@@ -22,6 +22,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import { AdminComponent } from './components/admin/admin.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,7 @@ import { AdminComponent } from './components/admin/admin.component';
     ModalComponent,
     OredrComponent,
     AdminComponent
-  ],
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
