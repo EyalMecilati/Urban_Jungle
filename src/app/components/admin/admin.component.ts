@@ -19,6 +19,7 @@ export class AdminComponent implements OnInit {
   public opened: boolean = true
   public fileSelected: any;
   public imageUploadedCheck: boolean = false;
+  public fileName: string = '';
 
   constructor(private httpCallService: HttpCallService, private formBuilder: FormBuilder) { }
 
@@ -78,24 +79,32 @@ export class AdminComponent implements OnInit {
       })
   }
 
-  // public addNewProduct(){
-  //   this.httpCallService.
-  // }
 
   public pickImage(e) {
     this.fileSelected = e.target.files[0];
+    this.fileName = this.fileSelected.name
     this.imageUploadedCheck = true;
   }
 
   public uploadImage() {
-    const imageData = new FormData()
+    const imageData = new FormData();
     imageData.append('file', this.fileSelected);
     const token = localStorage.getItem('token');
-    this.httpCallService.adminAddImage(imageData, token, this.newProductForm).subscribe(
+    this.httpCallService.adminAddImage(imageData).subscribe(
       res => {
         console.log(res)
       }, err => {
-        console.log(err)
+        if (err.status == 201) {
+          this.httpCallService.adminAddProduct({ ...this.newProductForm.value, name: this.fileSelected.name }).subscribe(
+            res => {
+              this.getProducts();
+            }, err => {
+              if (err.status == 201) {
+                this.getProducts();
+              }
+            }
+          )
+        }
       }
     )
   }

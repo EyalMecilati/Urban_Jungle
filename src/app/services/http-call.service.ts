@@ -181,12 +181,13 @@ export class HttpCallService {
     });
   }
 
-  public adminAddImage(uploadFile, token, form): Observable<any> {
-    const obj = {
-      form: form,
-      uploadFile: uploadFile
-    }
-    return this.http.post('http://localhost:1000/api/admin/new-product', obj)
+  public adminAddImage(imageData): Observable<any> {
+    console.log(imageData)
+    return this.http.post('http://localhost:1000/api/admin/uploadPhoto', imageData)
+  }
+
+  public adminAddProduct(newProductForm): Observable<any> {
+    return this.http.post<any>('http://localhost:1000/api/admin/new-product', newProductForm)
   }
 
 }
