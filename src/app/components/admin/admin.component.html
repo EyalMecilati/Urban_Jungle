@@ -43,9 +43,6 @@
                         <h1 class="categoryName">{{category[0].category_id.category_name}}</h1>
                         <div class="wrapper">
                             <div *ngFor="let product of category">
-                                <span (click)="deleteProduct(product._id)" class="material-icons remove">
-                                    delete_forever
-                                </span>
                                 <mat-card class="Productbox">
                                     <mat-card-header class="productHeader">
                                         <!-- (click)="changePrice(product._id)"  -->
@@ -56,6 +53,9 @@
                                     <mat-card-content>
                                         <img class="productImg" [src]="product.img_url" alt="User Avatar">
                                     </mat-card-content>
+                                    <span (click)="deleteProduct(product._id)" class="material-icons remove remove">
+                                        delete_forever
+                                    </span>
                                 </mat-card>
                             </div>
                         </div>

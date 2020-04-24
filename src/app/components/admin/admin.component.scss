@@ -29,8 +29,10 @@
     flex-direction: column;
     margin: 10px;
     .Productbox {
+        padding: 10px 0px;
         margin: 10px;
         border: 1px white solid;
+        width: 150px;
         .productHeader {
             height: fit-content;
             margin: 0px;
@@ -48,8 +50,9 @@
 }
 
 .productImg {
-    padding-left: 1rem;
+    margin-left: 25%;
     height: 6rem;
+    max-width: 5rem;
 }
 
 .wrapper {
@@ -75,6 +78,18 @@
 .newProductHeader {
     margin-top: 10%;
     text-align: center;
+}
+
+.price {
+    position: absolute;
+    z-index: 2;
+    top: 1px;
+    right: 9px;
+    transform: rotate(20deg);
+}
+
+.remove {
+    margin-left: 45%;
 }
 
 .uploadBtn {
