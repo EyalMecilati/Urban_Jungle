@@ -27,7 +27,8 @@
                 </form>
                 <form class="imageForm" (ngSubmit)='uploadImage()'>
                     <input class="uploadBtn" type="file" (change)='pickImage($event)'>
-                    <button mat-button [disabled]="newProductForm.invalid || !imageUploadedCheck" class="submit">Add new product</button>
+                    <button mat-button [disabled]="newProductForm.invalid || !imageUploadedCheck" class="submit">Add new
+                        product</button>
                 </form>
 
             </div>
@@ -44,14 +45,23 @@
                         <div class="wrapper">
                             <div *ngFor="let product of category">
                                 <mat-card class="Productbox">
-                                    <mat-card-header class="productHeader"> 
-                                        <span (click)="openDialog(product, 'price')" class="price" [matBadge]="product.price" matBadgeColor="warn">price</span>
-                                        <mat-card-title (click)="openDialog(product, 'prdouct_name')" class="cartProductTitle">{{product.prdouct_name}}
+                                    <mat-card-header class="productHeader">
+                                        <span (click)="openDialog(product, 'price')" class="price"
+                                            [matBadge]="product.price" matBadgeColor="warn">price</span>
+                                        <mat-card-title (click)="openDialog(product, 'prdouct_name')"
+                                            class="cartProductTitle">{{product.prdouct_name}}
                                         </mat-card-title>
                                     </mat-card-header>
                                     <mat-card-content>
-                                        <img class="productImg" [src]="product.img_url" alt="User Avatar">
+                                        <img class="productImg" [src]="product.img_url" alt="product image">
                                     </mat-card-content>
+                                    <div class="category">
+                                            <label>Change category</label>
+                                            <select class="changeCategory" (change)='changeCategory(product._id)' [(ngModel)]="categoryPickedId">
+                                                <option  *ngFor="let category of categorys" [value]='category._id'>
+                                                    {{category.category_name}}</option>
+                                            </select>
+                                    </div>
                                     <span (click)="deleteProduct(product._id)" class="material-icons remove remove">
                                         delete_forever
                                     </span>

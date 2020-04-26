@@ -24,4 +24,8 @@ export class AdminUpdateModalComponent implements OnInit {
     this.price = this.data2.price;
   }
 
+  onNoClick(): void {
+    this.dialogRef.close('dontUpdate');
+  }
+
 }

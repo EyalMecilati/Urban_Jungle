@@ -34,6 +34,7 @@
         border: 1px white solid;
         width: 150px;
         .productHeader {
+            cursor: pointer;
             height: fit-content;
             margin: 0px;
         }
@@ -81,6 +82,7 @@
 }
 
 .price {
+    cursor: pointer;
     position: absolute;
     z-index: 2;
     top: 1px;
@@ -101,8 +103,11 @@
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-// .imageForm {
-//     input[type="file" i] {
-//         color: red ;
-//     }
-// }
+.changeCategory{
+    width: 70%;
+    margin-left: 15%;
+}
+label {
+    margin-left: 15%;
+    margin-bottom: 5px;
+}

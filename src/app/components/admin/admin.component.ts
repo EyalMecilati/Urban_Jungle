@@ -24,6 +24,7 @@ export class AdminComponent implements OnInit {
   public fileSelected: any;
   public imageUploadedCheck: boolean = false;
   public fileName: string = '';
+  public categoryPickedId: string;
 
   constructor(private httpCallService: HttpCallService, private formBuilder: FormBuilder, public dialog: MatDialog) { }
 
@@ -128,20 +129,34 @@ export class AdminComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(AdminUpdateModalComponent, {
       width: '250px',
-      data: { price: product.price, prdouct_name: product.prdouct_name, category_id: product.category_id, property: updateProperty }
+      data: { price: product.price, prdouct_name: product.prdouct_name, property: updateProperty }
     });
     dialogRef.afterClosed().subscribe(result => {
-      let updateObj = { [updateProperty]: result }
-      console.log({ [updateProperty]: result })
-      return this.httpCallService.updateProductWithOutImage(updateObj, product._id).subscribe(
-        res => {
-          console.log(res)
-          this.getProducts();
-        }, err => {
-          console.log(err)
-        }
-      )
+      if (result == 'dontUpdate') {
+        return
+      } else {
+        let updateObj = { [updateProperty]: result }
+        return this.httpCallService.updateProductWithOutImage(updateObj, product._id).subscribe(
+          res => {
+            this.getProducts();
+          }, err => {
+            console.log(err)
+          }
+        )
+      }
     })
+  }
+
+  public changeCategory(id) {
+    let updateObj = { category_id: this.categoryPickedId }
+    return this.httpCallService.updateProductWithOutImage(updateObj, id).subscribe(
+      res => {
+        this.getProducts();
+        this.categoryPickedId = '';
+      }, err => {
+        console.log(err)
+      }
+    )
   }
 
 
