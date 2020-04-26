@@ -25,6 +25,7 @@ export class AdminComponent implements OnInit {
   public imageUploadedCheck: boolean = false;
   public fileName: string = '';
   public categoryPickedId: string;
+  public updateThisProductImg: Product = null;
 
   constructor(private httpCallService: HttpCallService, private formBuilder: FormBuilder, public dialog: MatDialog) { }
 
@@ -112,6 +113,27 @@ export class AdminComponent implements OnInit {
         }
       }
     )
+  }
+
+  public openUpdateForm(productPicked) {
+    this.updateThisProductImg = productPicked;
+  }
+
+  public updateImage(id) {
+    const imageData = new FormData();
+    imageData.append('file', this.fileSelected);
+    const token = localStorage.getItem('token');
+    this.httpCallService.updateImg(id, imageData).subscribe(
+      res => {
+        this.getProducts();
+      }, err => {
+        console.log(err)
+        if (err.status == 201) {
+          console.log('object')
+        }
+      }
+    )
+    this.updateThisProductImg = null;
   }
 
   openDialog(product, whatToUpdate): void {

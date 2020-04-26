@@ -192,7 +192,12 @@ export class HttpCallService {
 
 // update price/category_id/prdouct_name
 public updateProductWithOutImage(updateObj, id):Observable<any>{
-  return this.http.post('http://localhost:1000/api/admin/update-product/'+id,updateObj);
+  return this.http.post<any>('http://localhost:1000/api/admin/update-product/'+id,updateObj);
+}
+
+// update image
+public updateImg(id,updateImageForm):Observable<any>{
+  return this.http.post<any>('http://localhost:1000/api/admin/updatePhoto/'+id,updateImageForm)
 }
 
 }

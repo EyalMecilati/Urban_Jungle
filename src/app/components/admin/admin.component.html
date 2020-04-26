@@ -31,6 +31,13 @@
                         product</button>
                 </form>
 
+                <form *ngIf="updateThisProductImg" class="imageUpdateForm" (ngSubmit)='updateImage(updateThisProductImg._id)'>
+                    <h2>change {{updateThisProductImg.prdouct_name}}</h2>
+                    <input class="uploadBtn" type="file" (change)='pickImage($event)'>
+                    <button mat-button [disabled]="!imageUploadedCheck" class="submit">Update product image</button>
+                </form>
+
+
             </div>
         </mat-drawer>
         <!-- main view -->
@@ -53,7 +60,7 @@
                                         </mat-card-title>
                                     </mat-card-header>
                                     <mat-card-content>
-                                        <img class="productImg" [src]="product.img_url" alt="product image">
+                                        <img (click)="openUpdateForm(product)" class="productImg" [src]="product.img_url" alt="product image">
                                     </mat-card-content>
                                     <div class="category">
                                             <label>Change category</label>
