@@ -10,8 +10,7 @@ import { DialogData } from '../../../interfaces/DialogData ';
 })
 export class ModalComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data1: DialogData) { }
+  constructor(public dialogRef: MatDialogRef<ModalComponent>,@Inject(MAT_DIALOG_DATA) public data1: DialogData) { }
 
   public name: string;
   public quantity: number;

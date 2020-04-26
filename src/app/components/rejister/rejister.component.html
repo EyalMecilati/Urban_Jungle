@@ -1,94 +1,97 @@
-<mat-horizontal-stepper [linear]="isLinear" #stepper class="stepper">
-    <mat-step [stepControl]="rejisterForm1">
-        <form [formGroup]="rejisterForm1" (ngSubmit)='handleSubmit1(back)'>
-            <ng-template matStepLabel>basic details.</ng-template>
+<div class="container">
 
-            <mat-form-field>
-                <mat-label>email.</mat-label>
-                <input matInput placeholder="email@gmail.com" formControlName="email" email required>
-            </mat-form-field>
-            <p *ngIf="!rejisterForm1.controls.email.valid &&  rejisterForm1.controls.email.touched">email is a required
-                field</p>
-
-            <mat-form-field>
-                <mat-label>Id Number.</mat-label>
-                <input type="number" matInput placeholder="123456789" formControlName="idNum" number required>
-            </mat-form-field>
-            <p *ngIf="!rejisterForm1.controls.idNum.valid &&  rejisterForm1.controls.idNum.touched">Id Number is a
-                required field</p>
-            <p *ngIf="taken">a user with this id number is alredy rejister</p>
-            <mat-form-field>
-                <mat-label>Password.</mat-label>
-                <input type="password" matInput placeholder="*****" formControlName="passwordRow" #password1
-                    minlength="4" password required>
-            </mat-form-field>
-            <p *ngIf="!rejisterForm1.controls.passwordRow.valid &&  rejisterForm1.controls.passwordRow.touched">
-                password is a required field</p>
-            <p
-                *ngIf="rejisterForm1.controls.passwordRow.errors?.minlength && !rejisterForm1.controls.passwordRow.valid &&  rejisterForm1.controls.passwordRow.touched">
-                must be at least 4 qercter
-            </p>
-            <mat-form-field>
-                <mat-label>Confirm Password.</mat-label>
-                <input type="password" matInput placeholder="*****" formControlName="confirmPassword" minlength="4"
-                    password required>
-            </mat-form-field>
-            <p *ngIf="!rejisterForm1.controls.confirmPassword.valid &&  rejisterForm1.controls.confirmPassword.touched">
-                password is a required field</p>
-            <p
-                *ngIf="rejisterForm1.controls.confirmPassword.errors?.minlength  && !rejisterForm1.controls.confirmPassword.valid &&  rejisterForm1.controls.passwordRow.touched">
-                must be at least 4 qercter
-            </p>
-
+    <mat-horizontal-stepper [linear]="isLinear" #stepper class="stepper">
+        <mat-step [stepControl]="rejisterForm1">
+            <form [formGroup]="rejisterForm1" (ngSubmit)='handleSubmit1(back)'>
+                <ng-template matStepLabel>basic details.</ng-template>
+    
+                <mat-form-field>
+                    <mat-label>email.</mat-label>
+                    <input matInput placeholder="email@gmail.com" formControlName="email" email required>
+                </mat-form-field>
+                <p *ngIf="!rejisterForm1.controls.email.valid &&  rejisterForm1.controls.email.touched">email is a required
+                    field</p>
+    
+                <mat-form-field>
+                    <mat-label>Id Number.</mat-label>
+                    <input type="number" matInput placeholder="123456789" formControlName="idNum" number required>
+                </mat-form-field>
+                <p *ngIf="!rejisterForm1.controls.idNum.valid &&  rejisterForm1.controls.idNum.touched">Id Number is a
+                    required field</p>
+                <p *ngIf="taken">a user with this id number is alredy rejister</p>
+                <mat-form-field>
+                    <mat-label>Password.</mat-label>
+                    <input type="password" matInput placeholder="*****" formControlName="passwordRow" #password1
+                        minlength="4" password required>
+                </mat-form-field>
+                <p *ngIf="!rejisterForm1.controls.passwordRow.valid &&  rejisterForm1.controls.passwordRow.touched">
+                    password is a required field</p>
+                <p
+                    *ngIf="rejisterForm1.controls.passwordRow.errors?.minlength && !rejisterForm1.controls.passwordRow.valid &&  rejisterForm1.controls.passwordRow.touched">
+                    must be at least 4 qercter
+                </p>
+                <mat-form-field>
+                    <mat-label>Confirm Password.</mat-label>
+                    <input type="password" matInput placeholder="*****" formControlName="confirmPassword" minlength="4"
+                        password required>
+                </mat-form-field>
+                <p *ngIf="!rejisterForm1.controls.confirmPassword.valid &&  rejisterForm1.controls.confirmPassword.touched">
+                    password is a required field</p>
+                <p
+                    *ngIf="rejisterForm1.controls.confirmPassword.errors?.minlength  && !rejisterForm1.controls.confirmPassword.valid &&  rejisterForm1.controls.passwordRow.touched">
+                    must be at least 4 qercter
+                </p>
+    
+                <div>
+                    <button [ngStyle]="{'color': rejisterForm1.invalid?'grey':'white'}" [disabled]=rejisterForm1.invalid
+                        class="btn" mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+    
+        <mat-step [stepControl]="rejisterForm2">
+            <form [formGroup]="rejisterForm2" (ngSubmit)='handleSubmit2()'>
+                <ng-template matStepLabel>personal details.</ng-template>
+    
+                <mat-form-field>
+                    <mat-label>First Name.</mat-label>
+                    <input matInput formControlName="first_name" placeholder="John" required text>
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>Last Name.</mat-label>
+                    <input matInput formControlName="last_name" placeholder="Doe" required text>
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>Select City</mat-label>
+                    <mat-select formControlName="city">
+                        <mat-option *ngFor="let cityName of cities" [value]='cityName'>{{cityName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>Street.</mat-label>
+                    <input matInput formControlName="street" placeholder="salama" required text>
+                </mat-form-field>
+    
+                <div>
+                    <button #back class="btn" mat-button matStepperPrevious>Back</button>
+                    <button
+                        [ngStyle]="{'color': rejisterForm2.invalid && rejisterForm2.controls.street.dirty?'red':'white'}"
+                        [disabled]='rejisterForm2.invalid' class="btn" mat-button matStepperNext>Submit</button>
+                </div>
+    
+            </form>
+        </mat-step>
+    
+        <mat-step>
+            <ng-template matStepLabel>Done.</ng-template>
+            <p>You are now rejister and can enter the jungle.</p>
             <div>
-                <button [ngStyle]="{'color': rejisterForm1.invalid?'grey':'white'}" [disabled]=rejisterForm1.invalid
-                    class="btn" mat-button matStepperNext>Next</button>
+                <button class="btn" mat-button matStepperPrevious>Back</button>
             </div>
-        </form>
-    </mat-step>
-
-    <mat-step [stepControl]="rejisterForm2">
-        <form [formGroup]="rejisterForm2" (ngSubmit)='handleSubmit2()'>
-            <ng-template matStepLabel>personal details.</ng-template>
-
-            <mat-form-field>
-                <mat-label>First Name.</mat-label>
-                <input matInput formControlName="first_name" placeholder="John" required text>
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Last Name.</mat-label>
-                <input matInput formControlName="last_name" placeholder="Doe" required text>
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Select City</mat-label>
-                <mat-select formControlName="city">
-                    <mat-option *ngFor="let cityName of cities" [value]='cityName'>{{cityName}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Street.</mat-label>
-                <input matInput formControlName="street" placeholder="salama" required text>
-            </mat-form-field>
-
-            <div>
-                <button #back class="btn" mat-button matStepperPrevious>Back</button>
-                <button
-                    [ngStyle]="{'color': rejisterForm2.invalid && rejisterForm2.controls.street.dirty?'red':'white'}"
-                    [disabled]='rejisterForm2.invalid' class="btn" mat-button matStepperNext>Submit</button>
-            </div>
-
-        </form>
-    </mat-step>
-
-    <mat-step>
-        <ng-template matStepLabel>Done.</ng-template>
-        <p>You are now rejister and can enter the jungle.</p>
-        <div>
-            <button class="btn" mat-button matStepperPrevious>Back</button>
-        </div>
-    </mat-step>
-
-</mat-horizontal-stepper>
+        </mat-step>
+    
+    </mat-horizontal-stepper>
+</div>

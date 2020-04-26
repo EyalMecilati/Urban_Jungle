@@ -44,10 +44,9 @@
                         <div class="wrapper">
                             <div *ngFor="let product of category">
                                 <mat-card class="Productbox">
-                                    <mat-card-header class="productHeader">
-                                        <!-- (click)="changePrice(product._id)"  -->
-                                        <span class="price" [matBadge]="product.price" matBadgeColor="warn">price</span>
-                                        <mat-card-title class="cartProductTitle">{{product.prdouct_name}}
+                                    <mat-card-header class="productHeader"> 
+                                        <span (click)="openDialog(product, 'price')" class="price" [matBadge]="product.price" matBadgeColor="warn">price</span>
+                                        <mat-card-title (click)="openDialog(product, 'prdouct_name')" class="cartProductTitle">{{product.prdouct_name}}
                                         </mat-card-title>
                                     </mat-card-header>
                                     <mat-card-content>

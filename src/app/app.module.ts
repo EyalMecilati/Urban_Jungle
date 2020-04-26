@@ -19,8 +19,9 @@ import { StoreInfoComponent } from './components/store-info/store-info.component
 import { ModalComponent } from './components/products-main/modal/modal.component';
 import { OredrComponent } from './components/oredr/oredr.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';  
 import { AdminComponent } from './components/admin/admin.component';
+import { AdminUpdateModalComponent } from './components/admin/admin-update-modal/admin-update-modal.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { AdminComponent } from './components/admin/admin.component';
     StoreInfoComponent,
     ModalComponent,
     OredrComponent,
-    AdminComponent
+    AdminComponent,
+    AdminUpdateModalComponent
     ],
   imports: [
     BrowserModule,

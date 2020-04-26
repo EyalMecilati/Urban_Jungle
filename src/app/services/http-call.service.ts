@@ -180,14 +180,19 @@ export class HttpCallService {
       }
     });
   }
-
+// upload image to server 
   public adminAddImage(imageData): Observable<any> {
     console.log(imageData)
     return this.http.post('http://localhost:1000/api/admin/uploadPhoto', imageData)
   }
-
+// upload a new product
   public adminAddProduct(newProductForm): Observable<any> {
     return this.http.post<any>('http://localhost:1000/api/admin/new-product', newProductForm)
   }
+
+// update price/category_id/prdouct_name
+public updateProductWithOutImage(updateObj, id):Observable<any>{
+  return this.http.post('http://localhost:1000/api/admin/update-product/'+id,updateObj);
+}
 
 }

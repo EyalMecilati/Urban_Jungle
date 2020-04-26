@@ -1,0 +1,22 @@
+<h1 mat-dialog-title class="titleDialog">{{name}}</h1>
+<div mat-dialog-content *ngIf="propertyCheck == 'price'">
+    <p>change the price</p>
+    <mat-form-field>
+        <mat-label>price:</mat-label>
+        <input matInput type="number" [(ngModel)]="price">
+    </mat-form-field>
+</div>
+<div mat-dialog-content *ngIf="propertyCheck == 'prdouct_name'">
+    <p>change the prdouct name</p>
+    <mat-form-field>
+        <mat-label>prdouct_name:</mat-label>
+        <input matInput type="text" [(ngModel)]="name">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button>No Thanks</button>
+    <button *ngIf="propertyCheck == 'price'" mat-button [mat-dialog-close]="price" cdkFocusInitial>Ok</button>
+    <button *ngIf="propertyCheck == 'prdouct_name'" mat-button [mat-dialog-close]="name"
+        cdkFocusInitial>Ok</button>
+
+</div>

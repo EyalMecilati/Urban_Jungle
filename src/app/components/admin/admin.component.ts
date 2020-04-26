@@ -3,7 +3,11 @@ import { HttpCallService } from 'src/app/services/http-call.service';
 import { Category } from 'src/app/interfaces/Category';
 import { Product } from 'src/app/interfaces/products';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogData } from '../../interfaces/DialogData ';
+import { AdminUpdateModalComponent } from '../admin/admin-update-modal/admin-update-modal.component'
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -21,7 +25,7 @@ export class AdminComponent implements OnInit {
   public imageUploadedCheck: boolean = false;
   public fileName: string = '';
 
-  constructor(private httpCallService: HttpCallService, private formBuilder: FormBuilder) { }
+  constructor(private httpCallService: HttpCallService, private formBuilder: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -108,12 +112,37 @@ export class AdminComponent implements OnInit {
       }
     )
   }
-  // public changePrice(id){
-  //   let token = localStorage.getItem('token');
-  //   this.httpCallService.changePriceOfProduct(id,token).subscribe(res=>{
 
-  //   })
+  openDialog(product, whatToUpdate): void {
+    let updateProperty = '';
+    switch (whatToUpdate) {
+      case 'price':
+        updateProperty = 'price'
+        break;
+      case 'category_id':
+        updateProperty = 'category_id'
+        break;
+      case 'prdouct_name':
+        updateProperty = 'prdouct_name'
+        break;
+    }
+    const dialogRef = this.dialog.open(AdminUpdateModalComponent, {
+      width: '250px',
+      data: { price: product.price, prdouct_name: product.prdouct_name, category_id: product.category_id, property: updateProperty }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      let updateObj = { [updateProperty]: result }
+      console.log({ [updateProperty]: result })
+      return this.httpCallService.updateProductWithOutImage(updateObj, product._id).subscribe(
+        res => {
+          console.log(res)
+          this.getProducts();
+        }, err => {
+          console.log(err)
+        }
+      )
+    })
+  }
 
-  // }
 
 }
