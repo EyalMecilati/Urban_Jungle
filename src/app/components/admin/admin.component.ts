@@ -117,6 +117,7 @@ export class AdminComponent implements OnInit {
 
   public openUpdateForm(productPicked) {
     this.updateThisProductImg = productPicked;
+    this.opened = true
   }
 
   public updateImage(id) {

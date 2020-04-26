@@ -63,6 +63,8 @@
 }
 
 .remove {
+    margin: 10px;
+    cursor: pointer;
     position: relative;
     z-index: 2;
     top: 4px;
@@ -103,11 +105,28 @@
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.changeCategory{
+.changeCategory {
     width: 70%;
     margin-left: 15%;
 }
 label {
     margin-left: 15%;
     margin-bottom: 5px;
+}
+
+h3 {
+    text-align: center;
+    padding: 30px;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.firstForm {
+    margin-bottom: 20px;
+}
+
+.imageUpdateForm {
+    h2 {
+        color: red;
+    }
 }

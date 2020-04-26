@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpCallService } from 'src/app/services/http-call.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatHorizontalStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-rejister',
@@ -10,12 +11,15 @@ import { Router } from '@angular/router';
 })
 export class RejisterComponent implements OnInit {
 
+  @ViewChild(MatHorizontalStepper) stepper: MatHorizontalStepper;
+
   public token: string;
   public cities: any = ['Tel Aviv', 'Jerusalem', 'Haifa', 'Beersheba', 'Herzliya', 'Hod HaSharon', 'Holon', 'Raanana', 'Rehovot', 'Tiberias'];
   public isLinear = false;
   public rejisterForm1: FormGroup;
   public rejisterForm2: FormGroup;
   public taken: boolean = false;
+  public wrongPassword: boolean = false;
 
   constructor(private httpCallService: HttpCallService, private fBuilder: FormBuilder, private router: Router) { }
 
@@ -36,20 +40,30 @@ export class RejisterComponent implements OnInit {
   }
 
   // check if user is alredy rejister;
-  public handleSubmit1(back) {
-    this.httpCallService.checkNewUser({ idNum: this.rejisterForm1.value.idNum }).subscribe(
-      res => {
-        if (res == null) {
+  public handleSubmit1() {
+    this.wrongPassword = false;
+    if (this.rejisterForm1.value.passwordRow == this.rejisterForm1.value.confirmPassword) {
+      this.httpCallService.checkNewUser({ idNum: this.rejisterForm1.value.idNum }).subscribe(
+        res => {
+          console.log(res)
+          if (res == null) {
+            this.taken = false;
+          } else {
+            this.taken = true;
+            this.stepper.previous();
+          }
+        },
+        err => {
           this.taken = true;
-        } else {
-          this.taken = false;
+          this.stepper.previous();
+
         }
-      },
-      err => {
-        back.click()
-        this.taken = true;
-      }
-    )
+      )
+    } else {
+      this.taken = false;
+      this.wrongPassword = true;
+      this.stepper.previous();
+    }
   }
 
   public handleSubmit2() {

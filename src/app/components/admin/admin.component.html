@@ -5,34 +5,37 @@
         <mat-drawer class="sideOrder" mode="side" [opened]='opened'>
             <div class="newProducts">
                 <h2 class="newProductHeader">Add New Product</h2>
-                <form class="form" [formGroup]='newProductForm'>
-                    <div class="example-container">
+                <div class="firstForm">
+                    <form class="form" [formGroup]='newProductForm'>
+                        <div class="example-container">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select category</mat-label>
+                                <mat-select formControlName='category'>
+                                    <mat-option *ngFor="let category of categorys" [value]="category._id">
+                                        {{category.category_name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="fill">
+                                <mat-label>name</mat-label>
+                                <input matInput formControlName='prdouct_name'>
+                            </mat-form-field>
+                        </div>
                         <mat-form-field appearance="fill">
-                            <mat-label>Select category</mat-label>
-                            <mat-select formControlName='category'>
-                                <mat-option *ngFor="let category of categorys" [value]="category._id">
-                                    {{category.category_name}}</mat-option>
-                            </mat-select>
+                            <mat-label>price</mat-label>
+                            <input matInput type="number" formControlName='price'>
                         </mat-form-field>
+                    </form>
+                    <form class="imageForm" (ngSubmit)='uploadImage()'>
+                        <input class="uploadBtn" type="file" (change)='pickImage($event)'>
+                        <button mat-button [disabled]="newProductForm.invalid || !imageUploadedCheck" class="submit">Add new
+                            product</button>
+                    </form>
+                </div>
 
-                        <mat-form-field appearance="fill">
-                            <mat-label>name</mat-label>
-                            <input matInput formControlName='prdouct_name'>
-                        </mat-form-field>
-                    </div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>price</mat-label>
-                        <input matInput type="number" formControlName='price'>
-                    </mat-form-field>
-                </form>
-                <form class="imageForm" (ngSubmit)='uploadImage()'>
-                    <input class="uploadBtn" type="file" (change)='pickImage($event)'>
-                    <button mat-button [disabled]="newProductForm.invalid || !imageUploadedCheck" class="submit">Add new
-                        product</button>
-                </form>
-
-                <form *ngIf="updateThisProductImg" class="imageUpdateForm" (ngSubmit)='updateImage(updateThisProductImg._id)'>
-                    <h2>change {{updateThisProductImg.prdouct_name}}</h2>
+                <form *ngIf="updateThisProductImg" class="imageUpdateForm"
+                    (ngSubmit)='updateImage(updateThisProductImg._id)'>
+                    <h2>change {{updateThisProductImg.prdouct_name}} image</h2>
                     <input class="uploadBtn" type="file" (change)='pickImage($event)'>
                     <button mat-button [disabled]="!imageUploadedCheck" class="submit">Update product image</button>
                 </form>
@@ -42,6 +45,7 @@
         </mat-drawer>
         <!-- main view -->
         <mat-drawer-content class="mainView">
+            <h3>In order to update one of the product, simply press on the data you wish to change</h3>
             <div class="products">
                 <span (click)='toggleCart()' class="material-icons arrow">
                     arrow_right_alt
@@ -60,14 +64,16 @@
                                         </mat-card-title>
                                     </mat-card-header>
                                     <mat-card-content>
-                                        <img (click)="openUpdateForm(product)" class="productImg" [src]="product.img_url" alt="product image">
+                                        <img (click)="openUpdateForm(product)" class="productImg"
+                                            [src]="product.img_url" alt="product image">
                                     </mat-card-content>
                                     <div class="category">
-                                            <label>Change category</label>
-                                            <select class="changeCategory" (change)='changeCategory(product._id)' [(ngModel)]="categoryPickedId">
-                                                <option  *ngFor="let category of categorys" [value]='category._id'>
-                                                    {{category.category_name}}</option>
-                                            </select>
+                                        <label>Change category</label>
+                                        <select class="changeCategory" (change)='changeCategory(product._id)'
+                                            [(ngModel)]="categoryPickedId">
+                                            <option *ngFor="let category of categorys" [value]='category._id'>
+                                                {{category.category_name}}</option>
+                                        </select>
                                     </div>
                                     <span (click)="deleteProduct(product._id)" class="material-icons remove remove">
                                         delete_forever

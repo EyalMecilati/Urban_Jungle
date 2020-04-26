@@ -1,8 +1,8 @@
 <div class="container">
 
     <mat-horizontal-stepper [linear]="isLinear" #stepper class="stepper">
-        <mat-step [stepControl]="rejisterForm1">
-            <form [formGroup]="rejisterForm1" (ngSubmit)='handleSubmit1(back)'>
+        <mat-step  [stepControl]="rejisterForm1"> 
+            <form [formGroup]="rejisterForm1" (ngSubmit)='handleSubmit1()'>
                 <ng-template matStepLabel>basic details.</ng-template>
     
                 <mat-form-field>
@@ -19,6 +19,8 @@
                 <p *ngIf="!rejisterForm1.controls.idNum.valid &&  rejisterForm1.controls.idNum.touched">Id Number is a
                     required field</p>
                 <p *ngIf="taken">a user with this id number is alredy rejister</p>
+                <p *ngIf="wrongPassword">there is inconsistent between your password and confirm password</p>
+
                 <mat-form-field>
                     <mat-label>Password.</mat-label>
                     <input type="password" matInput placeholder="*****" formControlName="passwordRow" #password1
