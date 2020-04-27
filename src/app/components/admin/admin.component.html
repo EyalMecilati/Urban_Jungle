@@ -35,7 +35,10 @@
 
                 <form *ngIf="updateThisProductImg" class="imageUpdateForm"
                     (ngSubmit)='updateImage(updateThisProductImg._id)'>
-                    <h2>change {{updateThisProductImg.prdouct_name}} image</h2>
+                    <mat-card>
+                        <h2>change {{updateThisProductImg.prdouct_name}} image</h2>
+                        <img class="imageUpdateImg" mat-card-avatar [src]="updateThisProductImg.img_url" alt="product Avatar">
+                    </mat-card>
                     <input class="uploadBtn" type="file" (change)='pickImage($event)'>
                     <button mat-button [disabled]="!imageUploadedCheck" class="submit">Update product image</button>
                 </form>
@@ -45,11 +48,11 @@
         </mat-drawer>
         <!-- main view -->
         <mat-drawer-content class="mainView">
-            <h3>In order to update one of the product, simply press on the data you wish to change</h3>
+            <span (click)='toggleCart()' class="material-icons arrow">
+                arrow_right_alt
+            </span>
+            <h3>In order to update one of the product, simply press on the object you wish to change</h3>
             <div class="products">
-                <span (click)='toggleCart()' class="material-icons arrow">
-                    arrow_right_alt
-                </span>
                 <div class="categorySort" *ngFor="let category of productsByCategory; let i = index">
                     <div class="cardContainer">
                         <h1 class="categoryName">{{category[0].category_id.category_name}}</h1>
