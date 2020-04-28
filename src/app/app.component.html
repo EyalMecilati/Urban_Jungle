@@ -2,4 +2,6 @@
     <span><button class="btnHomePage" [routerLink]="[ '/' ]" mat-button>Urban Jungle</button></span>
     <span><button mat-button (click)="logout()" >LogOut</button></span>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<main [@routeAnimations]="prepareRoute(outlet)" class="content">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </main>

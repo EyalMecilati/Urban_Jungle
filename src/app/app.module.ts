@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,7 +11,6 @@ import { LoginMainComponent } from './components/login-main/login-main.component
 import { MainComponent } from './components/main/main.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MaterialModule } from './module/material.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RejisterComponent } from './components/rejister/rejister.component';
 import { MatInputModule} from '@angular/material/input';
 import { AboutMainComponent } from './components/about-main/about-main.component';
