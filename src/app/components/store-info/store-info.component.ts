@@ -24,7 +24,7 @@ export class StoreInfoComponent implements OnInit {
     this.getProducts();
   }
 
-  // get orders
+  // get last orders
   public getAllOrders() {
     this.httpCallService.getOrders().subscribe(
       res => {

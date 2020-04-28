@@ -31,9 +31,10 @@ export class AdminComponent implements OnInit {
   constructor(private httpCallService: HttpCallService, private formBuilder: FormBuilder, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
+    // check if its really anadmin 
     this.checkAdminToken()
     this.getProducts();
-
+// form for a new product 
     this.newProductForm = this.formBuilder.group({
       category: ['', [Validators.required]],
       prdouct_name: ['', [Validators.required]],
@@ -41,7 +42,7 @@ export class AdminComponent implements OnInit {
     });
 
   };
-
+// check admin
   public checkAdminToken() {
     this.loading = true;
     this.httpCallService.adminCheck().subscribe(
@@ -104,13 +105,13 @@ export class AdminComponent implements OnInit {
       })
   }
 
-
+// pick an image and save its data in var fileSelected
   public pickImage(e) {
     this.fileSelected = e.target.files[0];
     this.fileName = this.fileSelected.name
     this.imageUploadedCheck = true;
   }
-
+// upload the image to the server before adding the all new product information
   public uploadImage() {
     this.loading = true;
     const imageData = new FormData();
@@ -137,7 +138,7 @@ export class AdminComponent implements OnInit {
       }
     )
   }
-
+// open the form for an image update + openning the side menu where the form is 
   public openUpdateForm(productPicked) {
     this.updateThisProductImg = productPicked;
     this.opened = true
@@ -161,7 +162,7 @@ export class AdminComponent implements OnInit {
     )
     this.updateThisProductImg = null;
   }
-
+// open dialog for an product details update (without the image)
   openDialog(product, whatToUpdate): void {
     const dialogRef = this.dialog.open(AdminUpdateModalComponent, {
       width: '250px',
@@ -182,7 +183,7 @@ export class AdminComponent implements OnInit {
       }
     })
   }
-
+// change the product category
   public changeCategory(id) {
     let updateObj = { category_id: this.categoryPickedId }
     return this.httpCallService.updateProductWithOutImage(updateObj, id).subscribe(

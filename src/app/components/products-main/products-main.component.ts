@@ -48,7 +48,7 @@ export class ProductsMainComponent implements OnInit {
     this.openCart();
     this.httpCallService.openOrder = true;
   }
-
+// get all the products an set then acording to the category
   public getProducts() {
     this.productsByCategory = [];
     this.loading = true;
@@ -117,7 +117,7 @@ export class ProductsMainComponent implements OnInit {
       }
     )
   };
-
+// if there is an open cart get its information
   public getCartInfoForOpenCart() {
     let user_idNum: Params;
     this.activatedRoute.params.subscribe(
@@ -147,7 +147,7 @@ export class ProductsMainComponent implements OnInit {
         this.loading = false;
       })
   }
-
+// open this user a new cart
   public openCart() {
     this.loading = true
     this.errorMsg = false;
@@ -193,8 +193,8 @@ export class ProductsMainComponent implements OnInit {
   public toggleCart() {
     this.opened = !this.opened;
   }
-  // add item to the cart 
 
+  // add item to the cart 
   public addtoCart(res) {
     this.loading = true;
     this.totlalSumFromOldOrder = 0;
@@ -282,7 +282,7 @@ export class ProductsMainComponent implements OnInit {
       err => console.log(err)
     )
   }
-
+// change view throw ngif to order component 
   public gotoOrder() {
     this.httpCallService.openOrder = !this.httpCallService.openOrder;
   };

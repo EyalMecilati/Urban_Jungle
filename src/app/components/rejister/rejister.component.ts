@@ -65,7 +65,7 @@ export class RejisterComponent implements OnInit {
       this.stepper.previous();
     }
   }
-
+// send the all form and rejister the user 
   public handleSubmit2() {
     const user = { ...this.rejisterForm1.value, ...this.rejisterForm2.value }
     this.httpCallService.addNewUser(user).subscribe(

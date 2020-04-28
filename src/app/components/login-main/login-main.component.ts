@@ -29,7 +29,7 @@ export class LoginMainComponent implements OnInit {
     })
     this.httpCallService.getUserLastOrder();
   }
-
+// check for user token and find out in what positions he is
   public tokenCheck() {
     this.loading = true
     this.token = localStorage.getItem('token');
@@ -104,7 +104,7 @@ export class LoginMainComponent implements OnInit {
       }
     )
   };
-
+// go to rejister
   public changeGoToRejister() {
     this.router.navigate(['/rejister']);
   }

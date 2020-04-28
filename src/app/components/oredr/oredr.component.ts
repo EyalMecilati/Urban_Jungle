@@ -15,7 +15,7 @@ import { Router } from '@angular/router'
   encapsulation: ViewEncapsulation.None
 })
 export class OredrComponent implements OnInit {
-
+// inputs from products-main
   @Input()
   userCart: any;
   @Input()
@@ -53,18 +53,17 @@ export class OredrComponent implements OnInit {
   public toggleCart() {
     this.opened = !this.opened
   }
-
+// date filter
   public myFilter = (d): boolean => {
-
     return !this.invalidDates[d._d];
   }
-
+// highlight dates that have more then 3 order that day.
   public dateClass = (d) => {
     return this.invalidDates[d._d] ? 'highlight-dates' : undefined;
   }
 
 
-
+// send order
   public sendNewOrder() {
     let token = localStorage.getItem('token')
     this.httpCallService.sendOrder(token, this.orderForm.value, this.totlalSumFromOldOrder).subscribe(res => {
@@ -80,7 +79,7 @@ export class OredrComponent implements OnInit {
       console.log(err)
     })
   };
-
+// fill in the user details from is user information
   public setUserInfo() {
     this.orderForm.patchValue({
       city: this.uInfo.city,
@@ -126,7 +125,7 @@ export class OredrComponent implements OnInit {
   public gotoOrder() {
     this.httpCallService.openOrder = !this.httpCallService.openOrder;
   };
-
+// download the receipt
   public downloadReceiptToTxtFile() {
     for (let i = 0; i < this.productsFromLastOrder.length; i++) {
       this.productsFromLastOrder[i] = { ...this.productsFromLastOrder[i], quantity: this.userCart[i].quantity }
