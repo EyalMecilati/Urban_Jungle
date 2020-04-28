@@ -37,7 +37,6 @@ export class LoginMainComponent implements OnInit {
       res => {
         this.loading = false;
         this.httpCallService.headerCheck = true;
-        console.log(res.errors,res)
         // dont have a cart
         if (res.errors == 'dont have a cart yet') {
           this.httpCallService.storeInfoTotalSum = null;

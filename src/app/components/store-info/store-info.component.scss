@@ -1,27 +1,26 @@
-.card{
+.card {
     margin: 30px;
     padding: 10px;
     width: 400px;
-    // height: 300px;
-    opacity: 69%;
-    background: white;
-    color: #42240c ;
+    background: #899fb4;
+    color: white;
     font-weight: bold;
 }
 
-em{
-    color: green;
-    text-decoration: underline
+em {
+    color: white;
+    text-decoration: underline;
 }
 
 .mat-card-subtitle {
-    color: #42240c 
+    color: #42240c;
 }
 
-.header{
+.header {
+    color: white;
     margin-bottom: 25px;
 }
 
-mat-card-title{
+mat-card-title {
     color: #c81912;
 }
