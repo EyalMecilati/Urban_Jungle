@@ -1,14 +1,12 @@
-.container {
-    background-image: url("../../../assets/images/productBg.jpg");
-    width: 100%;
-    height: 100vh;
-    background-color: #84a9ac;
-}
-
 .side {
     border: 3px solid white;
     background-color: #899fb4;
     width: 30vw;
+}
+.container {
+    background-image: url("../../../assets/images/productBg.jpg");  
+    width: 100%;
+    height: 100vh;
 }
 
 .searchProduct {

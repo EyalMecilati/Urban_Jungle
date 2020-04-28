@@ -27,12 +27,7 @@ export class HttpCallService {
   //all products                                          ------products------
   public getAllProducts(): Observable<Product[]> {
     const token = localStorage.getItem('token');
-    return this.http.get<Product[]>('http://localhost:1000/api/products', {
-      headers: {
-        "Content-Type": "application/json",
-        "authorization": `Bearer ${token}`
-      }
-    });
+    return this.http.get<Product[]>('http://localhost:1000/api/products');
   };
 
   // products by category
@@ -179,37 +174,44 @@ export class HttpCallService {
 
   // admin functions
   public removeProduct(id, token): Observable<any> {
-    return this.http.delete<any>('http://localhost:1000/api/products/' + id, {
+    return this.http.delete<any>('http://localhost:1000/api/admin/' + id);
+  }
+  // upload image to server 
+  public adminAddImage(imageData): Observable<any> {
+    let token = localStorage.getItem('token');
+    return this.http.post('http://localhost:1000/api/admin/uploadPhoto', imageData)
+  }
+  // upload a new product
+  public adminAddProduct(newProductForm): Observable<any> {
+    let token = localStorage.getItem('token');
+    return this.http.post<any>('http://localhost:1000/api/admin/new-product', newProductForm)
+  }
+
+  // update price/category_id/prdouct_name
+  public updateProductWithOutImage(updateObj, id): Observable<any> {
+    let token = localStorage.getItem('token');
+    return this.http.post<any>('http://localhost:1000/api/admin/update-product/' + id, updateObj, {
       headers: {
         "Content-Type": "application/json",
         "authorization": `Bearer ${token}`
       }
     });
   }
-  // upload image to server 
-  public adminAddImage(imageData): Observable<any> {
-    console.log(imageData)
-    return this.http.post('http://localhost:1000/api/admin/uploadPhoto', imageData)
-  }
-  // upload a new product
-  public adminAddProduct(newProductForm): Observable<any> {
+
+  // update image
+  public updateImg(id, updateImageForm): Observable<any> {
     let token = localStorage.getItem('token');
-    return this.http.post<any>('http://localhost:1000/api/admin/new-product', newProductForm, {
+    return this.http.post<any>('http://localhost:1000/api/admin/updatePhoto/' + id, updateImageForm)
+  }
+
+  public adminCheck():Observable<any>{
+    let token = localStorage.getItem('token');
+    return this.http.get('http://localhost:1000/api/admin/check', {
       headers: {
         "Content-Type": "application/json",
         "authorization": `Bearer ${token}`
       }
     })
-  }
-
-  // update price/category_id/prdouct_name
-  public updateProductWithOutImage(updateObj, id): Observable<any> {
-    return this.http.post<any>('http://localhost:1000/api/admin/update-product/' + id, updateObj);
-  }
-
-  // update image
-  public updateImg(id, updateImageForm): Observable<any> {
-    return this.http.post<any>('http://localhost:1000/api/admin/updatePhoto/' + id, updateImageForm)
   }
 
 }

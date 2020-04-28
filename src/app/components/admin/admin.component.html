@@ -1,5 +1,5 @@
 <div class="container">
-    <!-- <mat-spinner color='Accent' class="spinner"></mat-spinner> -->
+    <mat-spinner color='Accent' class="spinner" *ngIf="loading"></mat-spinner>      
     <mat-drawer-container class="orderContainer">
         <!-- side view  -->
         <mat-drawer class="sideOrder" mode="side" [opened]='opened'>

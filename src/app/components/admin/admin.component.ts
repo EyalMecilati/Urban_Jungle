@@ -8,6 +8,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from '../../interfaces/DialogData ';
 import { AdminUpdateModalComponent } from '../admin/admin-update-modal/admin-update-modal.component'
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -18,7 +19,7 @@ export class AdminComponent implements OnInit {
   public productsByCategory = [];
   public products: Product[];
   public categorys: Category[];
-  public loading: boolean = false;
+  public loading: boolean = true;
   public newProductForm: FormGroup;
   public opened: boolean = true
   public fileSelected: any;
@@ -27,9 +28,10 @@ export class AdminComponent implements OnInit {
   public categoryPickedId: string;
   public updateThisProductImg: Product = null;
 
-  constructor(private httpCallService: HttpCallService, private formBuilder: FormBuilder, public dialog: MatDialog) { }
+  constructor(private httpCallService: HttpCallService, private formBuilder: FormBuilder, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
+    this.checkAdminToken()
     this.getProducts();
 
     this.newProductForm = this.formBuilder.group({
@@ -39,6 +41,22 @@ export class AdminComponent implements OnInit {
     });
 
   };
+
+  public checkAdminToken() {
+    this.loading = true;
+    this.httpCallService.adminCheck().subscribe(
+      res => {
+        this.loading = false;
+      }, err => {
+        if(err.error.text == "good to go"){
+          this.loading = false;
+        }else{
+          this.router.navigate(['/welcome-to-the-jungle']);
+        }
+      }
+      )
+      this.loading = false;
+  }
 
   public toggleCart() {
     this.opened = !this.opened
@@ -62,7 +80,6 @@ export class AdminComponent implements OnInit {
             this.loading = false;
           },
           err => {
-            console.log(this.productsByCategory)
             this.loading = false;
           }
         )
@@ -74,13 +91,15 @@ export class AdminComponent implements OnInit {
   }
 
   public deleteProduct(id) {
+    this.loading = true;
     const token = localStorage.getItem('token')
     this.httpCallService.removeProduct(id, token).subscribe(res => {
-      console.log(res)
+      this.loading = false;
     },
       err => {
         if (err.statusText == "Created") {
           this.getProducts();
+          this.loading = false;
         }
       })
   }
@@ -93,20 +112,24 @@ export class AdminComponent implements OnInit {
   }
 
   public uploadImage() {
+    this.loading = true;
     const imageData = new FormData();
     imageData.append('file', this.fileSelected);
     const token = localStorage.getItem('token');
     this.httpCallService.adminAddImage(imageData).subscribe(
       res => {
-        console.log(res)
+        this.loading = false;
       }, err => {
         if (err.status == 201) {
           this.httpCallService.adminAddProduct({ ...this.newProductForm.value, name: this.fileSelected.name }).subscribe(
             res => {
               this.getProducts();
+              this.loading = false;
             }, err => {
               if (err.status == 201) {
                 this.getProducts();
+                this.loading = false;
+
               }
             }
           )
@@ -121,16 +144,18 @@ export class AdminComponent implements OnInit {
   }
 
   public updateImage(id) {
+    this.loading = true;
     const imageData = new FormData();
     imageData.append('file', this.fileSelected);
     const token = localStorage.getItem('token');
     this.httpCallService.updateImg(id, imageData).subscribe(
       res => {
         this.getProducts();
+        this.loading = false;
       }, err => {
         console.log(err)
         if (err.status == 201) {
-          console.log('object')
+          this.loading = false;
         }
       }
     )
@@ -138,27 +163,15 @@ export class AdminComponent implements OnInit {
   }
 
   openDialog(product, whatToUpdate): void {
-    let updateProperty = '';
-    switch (whatToUpdate) {
-      case 'price':
-        updateProperty = 'price'
-        break;
-      case 'category_id':
-        updateProperty = 'category_id'
-        break;
-      case 'prdouct_name':
-        updateProperty = 'prdouct_name'
-        break;
-    }
     const dialogRef = this.dialog.open(AdminUpdateModalComponent, {
       width: '250px',
-      data: { price: product.price, prdouct_name: product.prdouct_name, property: updateProperty }
+      data: { price: product.price, prdouct_name: product.prdouct_name, property: whatToUpdate }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'dontUpdate') {
         return
       } else {
-        let updateObj = { [updateProperty]: result }
+        let updateObj = { [whatToUpdate]: result }
         return this.httpCallService.updateProductWithOutImage(updateObj, product._id).subscribe(
           res => {
             this.getProducts();
