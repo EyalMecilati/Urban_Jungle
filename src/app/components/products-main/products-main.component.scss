@@ -110,7 +110,6 @@ mat-card-content {
     margin: 10px;
     .Productbox {
         margin: 10px;
-        border: 1px white solid;
         .productHeader {
             height: fit-content;
             margin: 0px;
@@ -212,9 +211,13 @@ footer {
 }
 
 .totalSum {
-    padding: 10px;
+font-weight: bolder;    padding: 10px;
     background-color: white;
-    color: green;
+    color: #899fb4;
+}
+
+.mat-badge-warn .mat-badge-content {
+    background-color: #899fb4 !important;
 }
 
 footer {

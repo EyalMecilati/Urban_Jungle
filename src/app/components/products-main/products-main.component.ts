@@ -164,7 +164,7 @@ export class ProductsMainComponent implements OnInit {
           this.productsFromLastOrder = [];
           this.totlalSumFromOldOrder = 0;
           let productCheck;
-          if (this.products[0]) {
+          if (this.products != [] ) {
             productCheck = this.products
           } else {
             productCheck = this.productFilter

@@ -34,7 +34,7 @@ export class AdminComponent implements OnInit {
     // check if its really anadmin 
     this.checkAdminToken()
     this.getProducts();
-// form for a new product 
+    // form for a new product 
     this.newProductForm = this.formBuilder.group({
       category: ['', [Validators.required]],
       prdouct_name: ['', [Validators.required]],
@@ -42,21 +42,21 @@ export class AdminComponent implements OnInit {
     });
 
   };
-// check admin
+  // check admin
   public checkAdminToken() {
     this.loading = true;
     this.httpCallService.adminCheck().subscribe(
       res => {
         this.loading = false;
       }, err => {
-        if(err.error.text == "good to go"){
+        if (err.error.text == "good to go") {
           this.loading = false;
-        }else{
+        } else {
           this.router.navigate(['/welcome-to-the-jungle']);
         }
       }
-      )
-      this.loading = false;
+    )
+    this.loading = false;
   }
 
   public toggleCart() {
@@ -105,13 +105,13 @@ export class AdminComponent implements OnInit {
       })
   }
 
-// pick an image and save its data in var fileSelected
+  // pick an image and save its data in var fileSelected
   public pickImage(e) {
     this.fileSelected = e.target.files[0];
     this.fileName = this.fileSelected.name
     this.imageUploadedCheck = true;
   }
-// upload the image to the server before adding the all new product information
+  // upload the image to the server before adding the all new product information
   public uploadImage() {
     this.loading = true;
     const imageData = new FormData();
@@ -127,7 +127,11 @@ export class AdminComponent implements OnInit {
               this.getProducts();
               this.loading = false;
             }, err => {
+              console.log(err)
               if (err.status == 201) {
+                // server need to catch up
+                setTimeout(() => {
+                }, 0);
                 this.getProducts();
                 this.loading = false;
 
@@ -138,7 +142,7 @@ export class AdminComponent implements OnInit {
       }
     )
   }
-// open the form for an image update + openning the side menu where the form is 
+  // open the form for an image update + openning the side menu where the form is 
   public openUpdateForm(productPicked) {
     this.updateThisProductImg = productPicked;
     this.opened = true
@@ -162,7 +166,7 @@ export class AdminComponent implements OnInit {
     )
     this.updateThisProductImg = null;
   }
-// open dialog for an product details update (without the image)
+  // open dialog for an product details update (without the image)
   openDialog(product, whatToUpdate): void {
     const dialogRef = this.dialog.open(AdminUpdateModalComponent, {
       width: '250px',
@@ -183,7 +187,7 @@ export class AdminComponent implements OnInit {
       }
     })
   }
-// change the product category
+  // change the product category
   public changeCategory(id) {
     let updateObj = { category_id: this.categoryPickedId }
     return this.httpCallService.updateProductWithOutImage(updateObj, id).subscribe(
